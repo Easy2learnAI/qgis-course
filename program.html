@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>البرنامج — دورة QGIS</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="program">
+<main id="main">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">الرئيسية</a> / البرنامج</p>
+      <h1>برنامج الدورة</h1>
+      <p class="lede">الهيكل العام للمقرر: سبع وحدات، لكل وحدة محور وتمرين تطبيقي ومواد للتحميل.</p>
+      <div class="lesson-intro">
+        <a class="btn small" href="lesson.html?u=0">ابدأ من الوحدة 0</a>
+        <a class="textlink" href="assets/img/course-plan-ar.png" download>تحميل ملخص الخطة (صورة)</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap">
+      <table class="table syllabus">
+        <thead><tr><th style="width:90px">الوحدة</th><th>المحور</th><th>التمرين التطبيقي</th><th style="width:170px">المواد</th><th style="width:120px"></th></tr></thead>
+        <tbody id="syllabus"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="band ink">
+    <div class="wrap cta">
+      <div>
+        <h2>جاهز للوحدة الأولى؟</h2>
+        <p>سجّل في الدورة، ثم ثبّت <span class="ltr">QGIS</span> من صفحة الموارد.</p>
+      </div>
+      <a class="btn" href="register.html">سجّل في الدورة</a>
+    </div>
+  </section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  var C = window.COURSE;
+  document.getElementById('syllabus').innerHTML = C.units.map(function (u) {
+    var mats = u.materials.map(function (m) { return m.label.replace(/ التمرين| تمرين/, ''); }).join(' + ');
+    return '<tr><td><span class="num">' + u.n + '</span></td><td><b>' + ltr(u.axis) + '</b></td><td>' +
+      (u.exercise ? u.exercise + ': ' : '') + ltr(u.exTitle) + '</td><td>' + mats + '</td><td><a class="textlink" href="lesson.html?u=' + u.n + '">فتح الوحدة</a></td></tr>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>التسجيل — دورة QGIS</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="register">
+<main id="main">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">الرئيسية</a> / التسجيل</p>
+      <h1>التسجيل في الدورة</h1>
+      <p class="lede">املأ النموذج وسنتواصل معك عبر البريد الإلكتروني بتفاصيل الانطلاق.</p>
+    </div>
+  </header>
+
+  <div class="wrap reg">
+    <div>
+      <form class="form" id="reg" novalidate>
+        <div class="field"><label for="name">الاسم الكامل</label><input class="input" id="name" name="name" autocomplete="name" required><span class="err"></span></div>
+        <div class="field"><label for="email">البريد الإلكتروني</label><input class="input ltr" id="email" name="email" type="email" autocomplete="email" required style="text-align:right"><span class="err"></span></div>
+        <div class="field"><label for="phone">رقم الهاتف <span class="hint">(اختياري)</span></label><input class="input ltr" id="phone" name="phone" type="tel" autocomplete="tel" style="text-align:right"><span class="err"></span></div>
+        <div class="field"><label for="city">الولاية / المدينة</label><input class="input" id="city" name="city" required><span class="err"></span></div>
+        <div class="field full"><span style="font-weight:600;font-size:15px" id="prof-l">الصفة</span>
+          <div class="radios" role="radiogroup" aria-labelledby="prof-l">
+            <label><input type="radio" name="profile" value="طالب" required>طالب</label>
+            <label><input type="radio" name="profile" value="مهني">مهني</label>
+            <label><input type="radio" name="profile" value="باحث">باحث</label>
+            <label><input type="radio" name="profile" value="أخرى">أخرى</label>
+          </div><span class="err"></span>
+        </div>
+        <div class="field full"><label for="level">مستواك في نظم المعلومات الجغرافية</label>
+          <select id="level" name="level" required>
+            <option value="">اختر مستواك</option>
+            <option>لم أستعمل أي برنامج SIG من قبل</option>
+            <option>جرّبت QGIS أو ArcGIS قليلاً</option>
+            <option>أستعمل برنامج SIG في عملي أو دراستي</option>
+          </select><span class="err"></span>
+        </div>
+        <div class="field full"><label for="msg">ما الذي تريد تحقيقه من الدورة؟ <span class="hint">(اختياري)</span></label><textarea id="msg" name="message" rows="4"></textarea></div>
+        <div class="visually-hidden" aria-hidden="true"><label for="website">اترك هذا الحقل فارغاً</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="field full"><button class="btn" type="submit" style="align-self:flex-start">إرسال طلب التسجيل</button></div>
+      </form>
+      <div class="notice" id="done" hidden tabindex="-1">
+        <h3>تم إرسال طلب التسجيل</h3>
+        <p>شكراً <b id="done-name"></b>. ستصلك رسالة على <span class="ltr" id="done-mail"></span> بتفاصيل الانطلاق. يمكنك البدء الآن بتثبيت البرامج من <a href="resources.html">صفحة الموارد</a>.</p>
+      </div>
+      <div class="admin" id="admin" hidden>
+        وضع محلي: الطلبات محفوظة في هذا المتصفح (<b id="count">0</b>).
+        <button class="btn small quiet" type="button" id="csv">تنزيل الطلبات CSV</button>
+      </div>
+    </div>
+
+    <aside>
+      <div class="aside-box">
+        <h2 style="font-size:var(--s1)">ما الذي ستحصل عليه</h2>
+        <ul>
+          <li>7 وحدات و5 تمارين تطبيقية</li>
+          <li>كتاب ومجلد بيانات لكل تمرين</li>
+          <li>صفحة لكل وحدة لتتبّع خطواتك</li>
+          <li>معجم مصطلحات عربي / فرنسي / إنجليزي</li>
+          <li>برمجيات مجانية فقط: <span class="ltr">QGIS</span> و <span class="ltr">Google Earth Pro</span></li>
+        </ul>
+      </div>
+      <div class="aside-box" style="margin-top:32px">
+        <h2 style="font-size:var(--s1)">ما تحتاجه</h2>
+        <ul>
+          <li>حاسوب يعمل بـ <span class="ltr">Windows</span> أو <span class="ltr">macOS</span> أو <span class="ltr">Linux</span></li>
+          <li>اتصال بالإنترنت لتحميل البرامج والبيانات</li>
+          <li>لا تُشترط خبرة سابقة</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/register.js"></script>
+</body>
+</html>

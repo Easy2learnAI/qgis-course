@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الموارد — دورة QGIS</title>
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="resources">
+<main id="main">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">الرئيسية</a> / الموارد</p>
+      <h1>البرامج والمواد والمصطلحات</h1>
+      <p class="lede">كل ما تحتاجه قبل البدء: روابط التحميل، كتب التمارين وبياناتها، ومعجم المصطلحات بالعربية والفرنسية والإنجليزية.</p>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <h2 style="margin-bottom:6px">قبل الوحدة الأولى</h2>
+        <p style="color:var(--ink-2);margin-bottom:18px">ثبّت هذه البرامج. كلها مجانية.</p>
+        <table class="table tools"><tbody id="tools-body"></tbody></table>
+      </div>
+      <div>
+        <h2 style="margin-bottom:6px">كتب التمارين والبيانات</h2>
+        <p style="color:var(--ink-2);margin-bottom:18px">ملف لكل تمرين، ومجلد بيانات مضغوط.</p>
+        <div class="files" id="files" style="grid-template-columns:1fr 1fr"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="glossary">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>معجم المصطلحات</h2>
+        <p class="lede">واجهة <span class="ltr">QGIS</span> متاحة بعدة لغات. استعمل هذا المعجم لتربط المصطلح العربي بما تراه في البرنامج.</p>
+      </div>
+      <div class="search">
+        <label for="q" class="visually-hidden">ابحث في المعجم</label>
+        <input id="q" class="input" type="search" placeholder="ابحث: إسقاط، Raster، Couche…">
+      </div>
+      <table class="table glossary">
+        <thead><tr><th>العربية</th><th>Français</th><th>English</th></tr></thead>
+        <tbody id="gl"></tbody>
+      </table>
+      <p class="empty" id="gl-empty" hidden>لا يوجد مصطلح مطابق. جرّب كلمة أقصر أو لغة أخرى.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <h2 style="margin-bottom:10px">للتعمّق أكثر</h2>
+        <ul class="obj-list">
+          <li><a href="https://docs.qgis.org/latest/en/docs/" target="_blank" rel="noopener">التوثيق الرسمي لـ <span class="ltr">QGIS</span></a></li>
+          <li><a href="https://docs.qgis.org/latest/en/docs/training_manual/" target="_blank" rel="noopener">دليل التدريب الرسمي <span class="ltr">(QGIS Training Manual)</span></a></li>
+          <li><a href="https://plugins.qgis.org" target="_blank" rel="noopener">مستودع إضافات <span class="ltr">QGIS</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 style="margin-bottom:10px">ملخص الخطة</h2>
+        <p style="color:var(--ink-2)">صورة واحدة تلخّص الوحدات والتمارين والأهداف، للطباعة أو المشاركة.</p>
+        <p style="margin-top:16px"><a class="btn quiet" href="assets/img/course-plan-ar.png" download>تحميل الصورة</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+(function () {
+  var C = window.COURSE;
+  document.getElementById('tools-body').innerHTML = C.tools.map(function (t) {
+    return '<tr><td><a href="' + t.url + '" target="_blank" rel="noopener">' + t.name + '</a></td><td>' + ltr(t.role) + '</td></tr>';
+  }).join('');
+  var files = [];
+  C.units.forEach(function (u) { u.materials.forEach(function (m) { if (m.file) files.push(m); }); });
+  document.getElementById('files').innerHTML = files.map(function (m) {
+    return '<a class="file" href="' + m.file + '" download><span class="ext ' + m.type + '">' + m.type.toUpperCase() + '</span><span>' + m.label + '<small class="ltr">' + m.file.split('/').pop() + '</small></span></a>';
+  }).join('');
+
+  var gl = document.getElementById('gl'), empty = document.getElementById('gl-empty');
+  function norm(s) { return s.toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/[éèê]/g, 'e'); }
+  function render(f) {
+    var rows = C.glossary.filter(function (r) { return !f || norm(r.join(' ')).indexOf(norm(f)) > -1; });
+    gl.innerHTML = rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>'; }).join('');
+    empty.hidden = rows.length > 0;
+  }
+  document.getElementById('q').addEventListener('input', function (e) { render(e.target.value.trim()); });
+  render('');
+})();
+</script>
+</body>
+</html>

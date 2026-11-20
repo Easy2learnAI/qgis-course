@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>دورة نظم المعلومات الجغرافية باستخدام QGIS و Google Earth</title>
+<meta name="description" content="دورة تأسيسية تطبيقية في QGIS و Google Earth: الإرجاع الجغرافي، البيانات الاتجاهية والشبكية، وتصميم الخرائط — ببيانات حقيقية من بجاية وبسكرة.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="home">
+<main id="main">
+
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="meta"><span><i></i>دورة تأسيسية في سبع وحدات</span></div>
+        <h1>من خريطة ورقية ممسوحة إلى مشروع <span class="ltr">SIG</span> متكامل</h1>
+        <p class="lede">تعلّم نظم المعلومات الجغرافية باستخدام <span class="ltr">QGIS</span> و <span class="ltr">Google Earth</span>. في كل وحدة شرح نظري قصير يتبعه تمرين تطبيقي على بيانات حقيقية، حتى تُخرج خريطتك الأولى جاهزة للطباعة.</p>
+        <div class="actions">
+          <a class="btn" href="register.html">سجّل في الدورة</a>
+          <a class="textlink" href="program.html">تصفّح البرنامج</a>
+        </div>
+      </div>
+
+      <figure class="sheet" id="sheet">
+        <div class="sheet-frame"></div>
+        <div class="layers" role="group" aria-labelledby="layers-t">
+          <h3 id="layers-t">الطبقات <button type="button" data-replay title="إعادة عرض الإرجاع الجغرافي">إعادة</button></h3>
+          <ul>
+            <li><label><input type="checkbox" value="peaks" checked><svg class="sw" viewBox="0 0 18 14"><path d="M3 12 L9 2 L15 12Z" fill="#1c2b39"/></svg>القمم</label></li>
+            <li><label><input type="checkbox" value="rivers" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 10 C6 2 11 13 17 4" stroke="#2a6fb0" stroke-width="2" fill="none"/></svg>الأنهار</label></li>
+            <li><label><input type="checkbox" value="sebkha" checked><svg class="sw" viewBox="0 0 18 14"><rect x="1" y="2" width="16" height="10" fill="#dae8f4" stroke="#2a6fb0"/></svg>السبخة</label></li>
+            <li><label><input type="checkbox" value="contours" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 11 C6 6 11 12 17 6 M1 6 C6 2 11 7 17 2" stroke="#a0612f" fill="none"/></svg>الكنتور</label></li>
+            <li><label><input type="checkbox" value="hillshade" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="hs"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#4b5a68"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#hs)"/></svg>التظليل</label></li>
+            <li><label><input type="checkbox" value="dem" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="dm"><stop offset="0" stop-color="#dfe9cf"/><stop offset=".6" stop-color="#d9b98a"/><stop offset="1" stop-color="#ad8a74"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#dm)"/></svg>الارتفاعات</label></li>
+          </ul>
+        </div>
+        <figcaption class="statusbar"><span class="msg" aria-live="polite"></span><span class="coords">EPSG:4326</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band alt" id="objectives">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>ماذا ستتعلّم</h2>
+        <p class="lede">سبعة أهداف عامة تغطي دورة حياة مشروع نظم المعلومات الجغرافية: من تثبيت البرنامج وإدارة الإحداثيات، إلى التحليل المكاني وإخراج الخريطة.</p>
+      </div>
+      <ul class="legend" id="legend"></ul>
+      <p class="legend-caption">في نهاية الدورة ستكون قادراً على هيكلة مشروع نظم معلومات جغرافية، وتحليل البيانات المكانية الأساسية، وإنتاج خرائط واضحة وفعّالة.</p>
+    </div>
+  </section>
+
+  <section class="band" id="units">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>مسار الدورة</h2>
+        <p class="lede">سبع وحدات متتالية، كل منها مبنية على ما قبلها. ابدأ من الوحدة 0 وتقدّم بالترتيب.</p>
+      </div>
+      <ol class="traverse" id="traverse"></ol>
+    </div>
+  </section>
+
+  <section class="band ink">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>كيف تسير كل وحدة</h2>
+        <p class="lede" style="color:#c4cdd5">نفس البنية في كل تمرين، حتى تعرف دائماً أين أنت وما الخطوة التالية.</p>
+      </div>
+      <ol class="flow">
+        <li><h3>المفهوم</h3><p>مقدمة وجزء نظري قصير يشرح الفكرة قبل لمس البرنامج.</p></li>
+        <li><h3>الأهداف</h3><p>قائمة واضحة بما ستقدر على فعله في نهاية التمرين.</p></li>
+        <li><h3>التطبيق</h3><p>خطوات مرقّمة داخل <span class="ltr">QGIS</span> على بيانات حقيقية، مع كتاب التمرين ومجلد بياناته.</p></li>
+        <li><h3>النتيجة</h3><p>طبقة أو خريطة جاهزة تحفظها وتستعملها في الوحدة التالية.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="band alt" id="areas">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>مناطق الدراسة</h2>
+        <p class="lede">التمارين لا تعتمد على أمثلة افتراضية: ستعمل على خرائط وقياسات من الجزائر. اختر منطقة لعرضها على الخريطة.</p>
+      </div>
+      <div class="areas">
+        <div id="areas-map" aria-label="خريطة مناطق الدراسة"></div>
+        <ul class="area-list" id="area-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <div>
+        <h2 style="margin-bottom:14px">لمن هذه الدورة</h2>
+        <p>للطلاب والمهنيين والباحثين، ولكل من يرغب في اكتساب أسس متينة في نظم المعلومات الجغرافية بأداة مفتوحة المصدر وقوية وواسعة الانتشار. تُستعمل هذه المهارات في الإدارة البيئية، تخطيط الأراضي، تحليل المخاطر، البنية التحتية، النقل والتخطيط العمراني.</p>
+      </div>
+      <div>
+        <h2 style="margin-bottom:14px">البرامج المستعملة</h2>
+        <table class="table tools">
+          <thead><tr><th>البرنامج</th><th>الاستخدام في الدورة</th><th>السعر</th></tr></thead>
+          <tbody id="tools-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt">
+    <div class="wrap section-head" style="margin-bottom:0;align-items:start">
+      <h2>أسئلة شائعة</h2>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+
+  <section class="band ink">
+    <div class="wrap cta">
+      <div>
+        <h2>ابدأ بالوحدة الأولى</h2>
+        <p>سجّل الآن، ثبّت <span class="ltr">QGIS</span>، وافتح أول طبقة بيانات في الوحدة 1.</p>
+      </div>
+      <a class="btn" href="register.html">سجّل في الدورة</a>
+    </div>
+  </section>
+
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/data/terrain.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/js/home.js"></script>
+</body>
+</html>
