@@ -1,4 +1,5 @@
-/* محتوى الدورة — كل الصفحات تُبنى من هذا الملف. */
+/* محتوى الدورة — كل الصفحات تُبنى من هذا الملف.
+   لإضافة ملفات لاحقاً لوحدة ما: materials: [{ label: "اسم الملف", file: "materials/اسم.pdf", type: "pdf" }] */
 window.COURSE = {
   units: [
     {
@@ -17,7 +18,7 @@ window.COURSE = {
         { t: "الفئة المستهدفة" },
         { t: "إعلانات الدورة" }
       ],
-      materials: [{ label: "إعلانات الدورة", file: "program.html", type: "forum" }],
+      materials: [],
       tools: []
     },
     {
@@ -38,10 +39,7 @@ window.COURSE = {
         { t: "تحميل QGIS" }, { t: "تشغيل QGIS" }, { t: "إضافة البيانات" },
         { t: "تعريف مشروع QGIS" }, { t: "الإسقاط اللحظي" }
       ],
-      materials: [
-        { label: "كتاب التمرين 1", file: "materials/ex1.pdf", type: "pdf" },
-        { label: "بيانات تمرين 1", file: "materials/ex1_data.zip", type: "zip" }
-      ],
+      materials: [],
       tools: ["QGIS"]
     },
     {
@@ -73,10 +71,7 @@ window.COURSE = {
           "رقمنة القمم", "رقمنة الأنهار", "رقمنة السبخة"
         ]}
       ],
-      materials: [
-        { label: "كتاب التمرين 2", file: "materials/ex2.pdf", type: "pdf" },
-        { label: "بيانات تمرين 2", file: "materials/ex2_data.zip", type: "zip" }
-      ],
+      materials: [],
       tools: ["QGIS", "Georeferencer GDAL", "GeoPackage"]
     },
     {
@@ -97,10 +92,7 @@ window.COURSE = {
         { t: "ربط جداول الخصائص وحاسبة الحقول" },
         { t: "إنشاء نموذج شبكي من البيانات الاتجاهية (الاستيفاء)" }
       ],
-      materials: [
-        { label: "كتاب التمرين 3أ", file: "materials/ex3a.pdf", type: "pdf" },
-        { label: "بيانات التمرين 3أ", file: "materials/ex3a_data.zip", type: "zip" }
-      ],
+      materials: [],
       tools: ["QGIS"]
     },
     {
@@ -126,10 +118,7 @@ window.COURSE = {
         { t: "تحويل البيانات الشبكية إلى بيانات اتجاهية واقتطاع نطاقات الارتفاعات" },
         { t: "تحديد مكاني واستخراج الطرق المتقاطعة مع منطقة الثلوج" }
       ],
-      materials: [
-        { label: "كتاب التمرين 3ب", file: "materials/ex3b.pdf", type: "pdf" },
-        { label: "بيانات التمرين 3ب", file: "materials/ex3b_data.zip", type: "zip" }
-      ],
+      materials: [],
       tools: ["QGIS", "SRTM Downloader"]
     },
     {
@@ -155,10 +144,7 @@ window.COURSE = {
         ]},
         { t: "تصميم خريطة", sub: ["إعدادات مصمّم الطباعة", "إنهاء وتصدير"] }
       ],
-      materials: [
-        { label: "كتاب التمرين 4", file: "materials/ex4.pdf", type: "pdf" },
-        { label: "بيانات التمرين 4", file: "materials/ex4_data.zip", type: "zip" }
-      ],
+      materials: [],
       tools: ["QGIS", "GeoPackage"]
     },
     {
@@ -174,7 +160,7 @@ window.COURSE = {
         { t: "استخدام بيانات الوصول المفتوح OpenStreetMap" },
         { t: "تصدير الملفات إلى Google Earth" }
       ],
-      materials: [{ label: "كتاب «عناصر إضافية»", file: "materials/extras.pdf", type: "pdf" }],
+      materials: [],
       tools: ["QGIS", "OpenStreetMap", "Google Earth Pro"]
     }
   ],
@@ -243,7 +229,6 @@ window.COURSE = {
     ["هل أحتاج خبرة سابقة في نظم المعلومات الجغرافية؟", "لا. الدورة تأسيسية وتبدأ من تثبيت البرنامج والتعرّف على واجهته، ثم تتدرّج تمريناً بعد تمرين."],
     ["ما البرامج التي سأحتاجها؟", "QGIS للعمل في كل الوحدات، و Google Earth Pro للوحدة الأخيرة. كلاهما مجاني ويعمل على Windows و macOS و Linux."],
     ["أي نسخة من QGIS أثبّت؟", "يُنصح بالنسخة طويلة الدعم (LTR) لأنها الأكثر استقراراً. ستجد رابط التحميل في صفحة الموارد."],
-    ["هل البيانات متوفرة؟", "نعم. لكل تمرين كتاب خاص ومجلد بيانات جاهز للتحميل من صفحة الوحدة."],
     ["كيف أتابع تقدّمي؟", "في صفحة كل وحدة يمكنك تعليم الخطوات التي أنجزتها، ويحفظ المتصفح تقدّمك تلقائياً."]
   ]
 };

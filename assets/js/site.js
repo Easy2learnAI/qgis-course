@@ -38,7 +38,7 @@
       '<div><h4>الوحدات</h4><ul>' + units.slice(1, 6).map(function (u) {
         return '<li><a href="lesson.html?u=' + u.n + '">' + u.axis.replace('QGIS', '<span class="ltr">QGIS</span>') + '</a></li>';
       }).join('') + '</ul></div>' +
-      '<div><h4>الدورة</h4><ul><li><a href="program.html">البرنامج الكامل</a></li><li><a href="resources.html">البرامج والمواد</a></li><li><a href="resources.html#glossary">معجم المصطلحات</a></li><li><a href="register.html">التسجيل</a></li></ul></div>' +
+      '<div><h4>الدورة</h4><ul><li><a href="program.html">البرنامج الكامل</a></li><li><a href="resources.html">البرامج والمصطلحات</a></li><li><a href="resources.html#glossary">معجم المصطلحات</a></li><li><a href="register.html">التسجيل</a></li></ul></div>' +
       '<div><h4>تواصل معنا</h4><ul>' + (S.email ? '<li><a href="mailto:' + S.email + '">' + S.email + '</a></li>' : '') + (S.phone ? '<li class="ltr" style="text-align:right">' + S.phone + '</li>' : '') + '<li><a href="register.html">التسجيل في الدورة</a></li></ul></div>' +
     '</div>' +
     '<div class="collar-row">' +

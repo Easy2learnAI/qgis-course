@@ -51,6 +51,7 @@
 
   var label = { pdf: 'PDF', zip: 'ZIP', forum: '' };
   var desc = { pdf: 'كتاب التمرين', zip: 'مجلد البيانات', forum: 'برنامج الدورة ومستجداتها' };
+  if (u.materials.length) document.getElementById('materials-sec').hidden = false;
   document.getElementById('files').innerHTML = u.materials.map(function (m) {
     var href = m.file;
     return '<a class="file" href="' + href + '"' + (m.type !== 'forum' ? ' download' : '') + '><span class="ext ' + m.type + '">' + (label[m.type] || '•') + '</span><span>' + m.label + '<small>' + desc[m.type] + '</small></span></a>';
