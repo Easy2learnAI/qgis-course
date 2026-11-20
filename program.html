@@ -15,7 +15,7 @@
     <div class="wrap">
       <p class="crumbs"><a href="index.html">الرئيسية</a> / البرنامج</p>
       <h1>برنامج الدورة</h1>
-      <p class="lede">الهيكل العام للمقرر: سبع وحدات، لكل وحدة محور وتمرين تطبيقي ومواد للتحميل.</p>
+      <p class="lede">الهيكل العام للمقرر: سبع وحدات، لكل وحدة محور وتمرين تطبيقي.</p>
       <div class="lesson-intro">
         <a class="btn small" href="lesson.html?u=0">ابدأ من الوحدة 0</a>
         <a class="textlink" href="assets/img/course-plan-ar.png" download>تحميل ملخص الخطة (صورة)</a>
@@ -26,7 +26,7 @@
   <section class="band">
     <div class="wrap">
       <table class="table syllabus">
-        <thead><tr><th style="width:90px">الوحدة</th><th>المحور</th><th>التمرين التطبيقي</th><th style="width:170px">المواد</th><th style="width:120px"></th></tr></thead>
+        <thead><tr><th style="width:90px">الوحدة</th><th>المحور</th><th>التمرين التطبيقي</th><th style="width:120px"></th></tr></thead>
         <tbody id="syllabus"></tbody>
       </table>
     </div>
@@ -49,9 +49,8 @@
 (function () {
   var C = window.COURSE;
   document.getElementById('syllabus').innerHTML = C.units.map(function (u) {
-    var mats = u.materials.map(function (m) { return m.label.replace(/ التمرين| تمرين/, ''); }).join(' + ');
     return '<tr><td><span class="num">' + u.n + '</span></td><td><b>' + ltr(u.axis) + '</b></td><td>' +
-      (u.exercise ? u.exercise + ': ' : '') + ltr(u.exTitle) + '</td><td>' + mats + '</td><td><a class="textlink" href="lesson.html?u=' + u.n + '">فتح الوحدة</a></td></tr>';
+      (u.exercise ? u.exercise + ': ' : '') + ltr(u.exTitle) + '</td><td><a class="textlink" href="lesson.html?u=' + u.n + '">فتح الوحدة</a></td></tr>';
   }).join('');
 })();
 </script>

@@ -14,23 +14,18 @@
   <header class="page-head">
     <div class="wrap">
       <p class="crumbs"><a href="index.html">الرئيسية</a> / الموارد</p>
-      <h1>البرامج والمواد والمصطلحات</h1>
-      <p class="lede">كل ما تحتاجه قبل البدء: روابط التحميل، كتب التمارين وبياناتها، ومعجم المصطلحات بالعربية والفرنسية والإنجليزية.</p>
+      <h1>البرامج والمصطلحات</h1>
+      <p class="lede">كل ما تحتاجه قبل البدء: روابط تحميل البرامج، ومعجم المصطلحات بالعربية والفرنسية والإنجليزية.</p>
     </div>
   </header>
 
   <section class="band">
-    <div class="wrap split">
-      <div>
-        <h2 style="margin-bottom:6px">قبل الوحدة الأولى</h2>
-        <p style="color:var(--ink-2);margin-bottom:18px">ثبّت هذه البرامج. كلها مجانية.</p>
-        <table class="table tools"><tbody id="tools-body"></tbody></table>
+    <div class="wrap">
+      <div class="section-head">
+        <h2>قبل الوحدة الأولى</h2>
+        <p class="lede">ثبّت هذه البرامج. كلها مجانية.</p>
       </div>
-      <div>
-        <h2 style="margin-bottom:6px">كتب التمارين والبيانات</h2>
-        <p style="color:var(--ink-2);margin-bottom:18px">ملف لكل تمرين، ومجلد بيانات مضغوط.</p>
-        <div class="files" id="files" style="grid-template-columns:1fr 1fr"></div>
-      </div>
+      <table class="table tools"><tbody id="tools-body"></tbody></table>
     </div>
   </section>
 
@@ -79,12 +74,6 @@
   document.getElementById('tools-body').innerHTML = C.tools.map(function (t) {
     return '<tr><td><a href="' + t.url + '" target="_blank" rel="noopener">' + t.name + '</a></td><td>' + ltr(t.role) + '</td></tr>';
   }).join('');
-  var files = [];
-  C.units.forEach(function (u) { u.materials.forEach(function (m) { if (m.file) files.push(m); }); });
-  document.getElementById('files').innerHTML = files.map(function (m) {
-    return '<a class="file" href="' + m.file + '" download><span class="ext ' + m.type + '">' + m.type.toUpperCase() + '</span><span>' + m.label + '<small class="ltr">' + m.file.split('/').pop() + '</small></span></a>';
-  }).join('');
-
   var gl = document.getElementById('gl'), empty = document.getElementById('gl-empty');
   function norm(s) { return s.toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/[éèê]/g, 'e'); }
   function render(f) {
