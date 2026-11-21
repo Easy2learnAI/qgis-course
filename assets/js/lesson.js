@@ -13,7 +13,8 @@
   var chips = ['الوحدة ' + n + ' من ' + (C.units.length - 1)];
   if (u.area) chips.push('منطقة الدراسة: ' + C.areas[u.area].name);
   u.tools.forEach(function (t) { chips.push('<span class="ltr">' + t + '</span>'); });
-  document.getElementById('chips').innerHTML = chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
+  document.getElementById('chips').innerHTML = chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('') +
+    '<a class="textlink" href="' + (C.guidePdf || '') + '" download>تحميل الدليل المفصّل (PDF)</a>';
 
   document.getElementById('toc').innerHTML = C.units.map(function (x) {
     return '<li><a href="lesson.html?u=' + x.n + '"' + (x.n === n ? ' aria-current="page"' : '') + '><span class="n">' + x.n + '</span><span>' + ltr(x.axis) + '</span></a></li>';
@@ -21,11 +22,39 @@
 
   document.getElementById('objectives').innerHTML = u.objectives.map(function (o) { return '<li>' + ltr(o) + '</li>'; }).join('');
 
-  // Exercise outline (read-only; the exercises are done together during the course)
-  document.getElementById('steps').innerHTML = u.steps.map(function (s) {
-    return '<li><span class="st">' + ltr(s.t) + '</span>' +
-      (s.sub ? '<ul>' + s.sub.map(function (x) { return '<li>' + ltr(x) + '</li>'; }).join('') + '</ul>' : '') + '</li>';
+  // Exercise outline + detailed "how to" from the course guide (assets/js/guide.js)
+  var G = (window.GUIDE && GUIDE.units && GUIDE.units[n]) || { steps: {} };
+  var detailed = 0;
+  document.getElementById('steps').innerHTML = u.steps.map(function (s, i) {
+    var how = G.steps[String(i + 1)] || '';
+    if (how) detailed++;
+    var label = /^(مقدمة|الجزء النظري|أهداف التمرين|أهداف التعلّم|تقديم المقرر|المنهجية التطبيقية والأهداف|الفئة المستهدفة|إعلانات الدورة)$/.test(s.t) ? 'اقرأ الشرح' : 'طريقة التنفيذ';
+    return '<li><div class="step-body"><span class="st">' + ltr(s.t) + '</span>' +
+      (s.sub ? '<ul>' + s.sub.map(function (x) { return '<li>' + ltr(x) + '</li>'; }).join('') + '</ul>' : '') +
+      (how ? '<details class="how"><summary>' + label + '</summary><div class="guide">' + how + '</div></details>' : '') +
+      '</div></li>';
   }).join('');
+  if (detailed) {
+    document.getElementById('steps-hint').hidden = false;
+    var tg = document.getElementById('toggle-all');
+    tg.hidden = false;
+    tg.addEventListener('click', function () {
+      var all = document.querySelectorAll('#steps details.how');
+      var open = !Array.prototype.every.call(all, function (d) { return d.open; });
+      Array.prototype.forEach.call(all, function (d) { d.open = open; });
+      tg.textContent = open ? 'أخفِ كل التفاصيل' : 'اعرض كل التفاصيل';
+    });
+  }
+  if (G.extras) { document.getElementById('extras-sec').hidden = false; document.getElementById('extras').innerHTML = G.extras; }
+  if (G.ge) {
+    document.getElementById('ge-sec').hidden = false;
+    document.getElementById('ge').innerHTML = G.ge;
+    document.getElementById('ge-opt').hidden = !G.geOptional;
+    document.getElementById('ge-title').innerHTML = G.geOptional
+      ? 'تطبيق اختياري في <span class="ltr">Google Earth Pro</span>'
+      : 'في <span class="ltr">Google Earth Pro</span>';
+  }
+  if (G.result) { document.getElementById('result-sec').hidden = false; document.getElementById('result').innerHTML = G.result; }
 
   // Materials: the section stays hidden until files are added in data.js
   var label = { pdf: 'PDF', zip: 'ZIP' };
