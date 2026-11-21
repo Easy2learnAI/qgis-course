@@ -1,0 +1,18 @@
+# يمنع توقّف مشروع Supabase المجاني (يتوقف بعد أسبوع بلا نشاط):
+# يرسل طلباً صغيراً مرتين في الأسبوع، ويقرأ الرابط والمفتاح العام من assets/js/config.js
+name: Supabase keep-alive
+on:
+  schedule:
+    - cron: "17 6 * * 1,4"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ping
+        run: |
+          URL=$(grep -oP 'supabaseUrl:\s*"\K[^"]+' assets/js/config.js || true)
+          KEY=$(grep -oP 'supabaseAnonKey:\s*"\K[^"]+' assets/js/config.js || true)
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then echo "Supabase not configured yet"; exit 0; fi
+          curl -fsS -X POST "$URL/rest/v1/rpc/keepalive" -H "apikey: $KEY" -H "Content-Type: application/json" -d '{}'
