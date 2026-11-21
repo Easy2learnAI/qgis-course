@@ -406,3 +406,6 @@ details.how>.guide{margin-top:12px}
 @media (max-width:640px){.file-list li{flex-direction:column;align-items:flex-start}.auth-box{padding:18px}}
 .admin-table td:first-child{direction:rtl;font-weight:600;white-space:normal}
 .band .section-head:has(> h2:only-child){margin-bottom:20px}
+.notice.locked{margin:4px 0 20px}
+.notice.locked p+p{margin-top:12px}
+.locked-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
