@@ -371,3 +371,38 @@ details.how>.guide{margin-top:12px}
   .guide ol.steps>li{padding-inline-start:30px}
   .outline>li{grid-template-columns:24px 1fr}
 }
+
+/* ---------- ملفات الدورة المحمية + لوحة الإدارة ---------- */
+.auth-box{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r);padding:24px 26px;max-width:460px;display:flex;flex-direction:column;gap:14px}
+.auth-box h2,.auth-box h3{font-family:var(--f-display);font-size:var(--s1);margin:0}
+.auth-box form{display:flex;flex-direction:column;gap:14px}
+.auth-box .btn{align-self:flex-start}
+.auth-box textarea{font-size:15px;line-height:1.7}
+.form-msg{font-size:14px;color:#b23a2e;min-height:0;margin:0}
+.form-msg:empty{display:none}
+.form-msg.ok{color:#2e7d4a}
+.small-note{font-size:14px;color:var(--ink-3)}
+.account-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r);margin-bottom:28px}
+.account-actions{display:flex;flex-wrap:wrap;gap:8px}
+#pw-box{margin-bottom:28px}
+.file-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin:0;padding:0}
+.file-list li{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 18px;background:var(--sheet);border:1px solid var(--rule);border-inline-start:4px solid var(--revision);border-radius:var(--r)}
+.file-list .meta{display:block;font-size:13px;color:var(--ink-3)}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:start;margin-bottom:28px}
+.admin-grid .auth-box{max-width:none}
+.inline{display:flex;gap:8px}
+.inline .input{flex:1}
+.table-scroll{overflow-x:auto}
+.admin-table{width:100%;min-width:640px}
+.admin-table td.acts{white-space:nowrap}
+.admin-table td.acts .btn{margin-inline-end:6px}
+.btn.danger{color:#b23a2e;border-color:#b23a2e}
+.btn.danger:hover,.btn.danger.confirm{background:#b23a2e;color:#fff}
+.tag{display:inline-block;font-size:13px;font-weight:600;padding:1px 10px;border-radius:20px;border:1px solid}
+.tag.on{color:#2e7d4a;border-color:#2e7d4a;background:#e6f2ea}
+.tag.off{color:#b23a2e;border-color:#b23a2e;background:#f8e6e3}
+.tag.admin{color:var(--revision);border-color:var(--revision);background:var(--revision-tint)}
+.count{font-size:var(--s0);color:var(--ink-3);font-weight:500}
+@media (max-width:640px){.file-list li{flex-direction:column;align-items:flex-start}.auth-box{padding:18px}}
+.admin-table td:first-child{direction:rtl;font-weight:600;white-space:normal}
+.band .section-head:has(> h2:only-child){margin-bottom:20px}
