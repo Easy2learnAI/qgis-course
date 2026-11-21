@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة الإدارة — دورة QGIS</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="admin">
+<main id="main">
+  <header class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">الرئيسية</a> / <a href="files.html">ملفات الدورة</a> / لوحة الإدارة</p>
+      <h1>لوحة الإدارة</h1>
+      <p class="lede">أنشئ حسابات المتدرّبين، وأوقفها أو احذفها، وارفع الدليل ومواد التمارين.</p>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="notice" id="gate" hidden>
+        <h3 id="gate-title">هذه الصفحة للأدمن فقط</h3>
+        <p id="gate-text">ادخل أولاً من <a href="files.html">صفحة ملفات الدورة</a> بحساب الأدمن.</p>
+      </div>
+
+      <div id="panel" hidden>
+        <!-- ================= المتدرّبون ================= -->
+        <div class="section-head"><h2>المتدرّبون <span class="count" id="t-count"></span></h2></div>
+
+        <div class="admin-grid">
+          <form class="auth-box" id="add-form" novalidate>
+            <h3>إضافة متدرّب</h3>
+            <div class="field"><label for="a-name">الاسم الكامل</label><input class="input" id="a-name" required></div>
+            <div class="field"><label for="a-email">البريد الإلكتروني</label><input class="input ltr" id="a-email" type="email" required style="text-align:right"></div>
+            <div class="field"><label for="a-pw">كلمة مرور مؤقتة</label>
+              <div class="inline"><input class="input ltr" id="a-pw" required minlength="8" style="text-align:right"><button class="btn small quiet" type="button" id="gen">توليد</button></div>
+              <span class="hint">يستطيع المتدرّب تغييرها بعد الدخول.</span></div>
+            <p class="form-msg" id="add-msg" role="alert"></p>
+            <button class="btn" type="submit">إنشاء الحساب</button>
+          </form>
+
+          <div class="auth-box" id="cred" hidden>
+            <h3>الحساب جاهز</h3>
+            <p class="small-note">انسخ هذه الرسالة وأرسلها للمتدرّب. لن تظهر كلمة المرور مرة أخرى.</p>
+            <textarea id="cred-text" rows="8" readonly></textarea>
+            <button class="btn small" type="button" id="copy">نسخ الرسالة</button>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table class="table admin-table">
+            <thead><tr><th>الاسم</th><th>البريد الإلكتروني</th><th>الحالة</th><th>آخر دخول</th><th>إجراءات</th></tr></thead>
+            <tbody id="t-body"></tbody>
+          </table>
+        </div>
+        <p class="form-msg" id="t-msg" role="alert"></p>
+
+        <!-- ================= الملفات ================= -->
+        <div class="section-head" style="margin-top:56px"><h2>الملفات المحمية</h2><p class="lede">يراها المتدرّبون المفعَّلون فقط في <a href="files.html">صفحة ملفات الدورة</a>. الحد الأقصى للملف الواحد <span class="ltr">50 MB</span>.</p></div>
+
+        <form class="auth-box" id="up-form" novalidate style="max-width:none">
+          <div class="form">
+            <div class="field"><label for="u-folder">القسم</label>
+              <select id="u-folder"><option value="guide">الدليل المفصّل</option><option value="materials" selected>مواد التمارين</option></select></div>
+            <div class="field"><label for="u-title">العنوان الظاهر للمتدرّب</label><input class="input" id="u-title" placeholder="مثال: بيانات تمرين 3أ — آبار بسكرة"></div>
+            <div class="field full"><label for="u-file">الملف</label><input class="input" id="u-file" type="file" required></div>
+            <div class="field full"><p class="form-msg" id="up-msg" role="alert"></p><button class="btn" type="submit" style="align-self:flex-start">رفع الملف</button></div>
+          </div>
+        </form>
+
+        <div class="table-scroll">
+          <table class="table admin-table">
+            <thead><tr><th>العنوان</th><th>القسم</th><th>الحجم</th><th>تاريخ الرفع</th><th>إجراءات</th></tr></thead>
+            <tbody id="f-body"></tbody>
+          </table>
+        </div>
+        <p class="form-msg" id="f-msg" role="alert"></p>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var me = null;
+  var FOLDERS = { guide: 'الدليل المفصّل', materials: 'مواد التمارين' };
+
+  function gate(title, html) { $('gate').hidden = false; $('panel').hidden = true; if (title) $('gate-title').textContent = title; if (html) $('gate-text').innerHTML = html; }
+
+  if (!SB.configured()) { gate('نظام الحسابات غير مفعَّل', 'أضف <span class="ltr">supabaseUrl</span> و <span class="ltr">supabaseAnonKey</span> في <span class="ltr">assets/js/config.js</span>.'); return; }
+
+  function genPw() {
+    var a = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789', r = new Uint32Array(10), s = '';
+    crypto.getRandomValues(r); for (var i = 0; i < r.length; i++) s += a[r[i] % a.length]; return s;
+  }
+
+  // ---------------- المتدرّبون ----------------
+  function credText(name, email, pw) {
+    var site = location.href.replace(/admin\.html.*$/, 'files.html');
+    return 'السلام عليكم ' + name + '،\n\nتم إنشاء حسابك في دورة QGIS. لتحميل الدليل ومواد التمارين:\n' +
+      'الرابط: ' + site + '\nالبريد: ' + email + '\nكلمة المرور المؤقتة: ' + pw + '\n\n' +
+      'بعد الدخول يمكنك تغيير كلمة المرور من زر «تغيير كلمة المرور».';
+  }
+
+  function loadUsers() {
+    $('t-msg').textContent = '';
+    return SB.admin('list').then(function (d) {
+      var users = d.users || [];
+      $('t-count').textContent = '(' + users.filter(function (u) { return u.role !== 'admin'; }).length + ')';
+      $('t-body').innerHTML = users.map(function (u) {
+        var self = u.id === me.id, isAdmin = u.role === 'admin';
+        var st = isAdmin ? '<span class="tag admin">أدمن</span>' : (u.active ? '<span class="tag on">مفعَّل</span>' : '<span class="tag off">موقوف</span>');
+        var acts = self ? '<span class="small-note">حسابك</span>' :
+          '<button class="btn small quiet" data-act="toggle" data-id="' + u.id + '" data-active="' + (u.active ? 1 : 0) + '">' + (u.active ? 'إيقاف' : 'تفعيل') + '</button>' +
+          '<button class="btn small quiet" data-act="pw" data-id="' + u.id + '" data-name="' + esc(u.full_name || '') + '" data-email="' + esc(u.email) + '">كلمة مرور جديدة</button>' +
+          '<button class="btn small quiet danger" data-act="del" data-id="' + u.id + '">حذف</button>';
+        return '<tr><td>' + esc(u.full_name || '—') + '</td><td class="ltr" style="text-align:right">' + esc(u.email) + '</td><td>' + st + '</td><td>' + fmtDate(u.last_sign_in_at) + '</td><td class="acts">' + acts + '</td></tr>';
+      }).join('') || '<tr><td colspan="5" class="empty">لا يوجد متدرّبون بعد.</td></tr>';
+    }, function (e) { $('t-msg').textContent = e.message; });
+  }
+
+  $('gen').addEventListener('click', function () { $('a-pw').value = genPw(); });
+
+  $('add-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('add-msg'), b = this.querySelector('button[type=submit]');
+    var name = $('a-name').value.trim(), email = $('a-email').value.trim(), pw = $('a-pw').value;
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { m.textContent = 'اكتب الاسم وبريداً إلكترونياً صحيحاً.'; return; }
+    if (pw.length < 8) { m.textContent = 'كلمة المرور 8 أحرف على الأقل. اضغط «توليد» لكلمة قوية.'; return; }
+    m.textContent = ''; b.disabled = true;
+    SB.admin('create', { email: email, password: pw, full_name: name }).then(function () {
+      $('cred').hidden = false; $('cred-text').value = credText(name, email, pw);
+      $('a-name').value = $('a-email').value = ''; $('a-pw').value = genPw();
+      return loadUsers();
+    }, function (err) { m.textContent = err.message; }).then(function () { b.disabled = false; });
+  });
+
+  $('copy').addEventListener('click', function () {
+    var t = $('cred-text'); t.select();
+    (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.reject()).catch(function () { document.execCommand('copy'); });
+    this.textContent = 'تم النسخ'; var b = this; setTimeout(function () { b.textContent = 'نسخ الرسالة'; }, 1500);
+  });
+
+  // أزرار الجدولين (الحذف يحتاج ضغطة ثانية للتأكيد)
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
+    if ((act === 'del' || act === 'fdel') && !b.classList.contains('confirm')) {
+      b.classList.add('confirm'); b.dataset.label = b.textContent; b.textContent = 'تأكيد الحذف؟';
+      setTimeout(function () { if (b.isConnected) { b.classList.remove('confirm'); b.textContent = b.dataset.label; } }, 4000);
+      return;
+    }
+    b.disabled = true;
+    var p;
+    if (act === 'toggle') p = SB.admin('set_active', { id: id, active: b.getAttribute('data-active') !== '1' }).then(loadUsers);
+    else if (act === 'del') p = SB.admin('delete', { id: id }).then(loadUsers);
+    else if (act === 'pw') {
+      var pw = genPw();
+      p = SB.admin('set_password', { id: id, password: pw }).then(function () {
+        $('cred').hidden = false; $('cred-text').value = credText(b.getAttribute('data-name'), b.getAttribute('data-email'), pw);
+        $('cred').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    } else if (act === 'fdel') p = SB.deleteFile(b.getAttribute('data-path')).then(loadFiles);
+    p.catch(function (err) { $(act === 'fdel' ? 'f-msg' : 't-msg').textContent = err.message; })
+     .then(function () { if (b.isConnected) b.disabled = false; });
+  });
+
+  // ---------------- الملفات ----------------
+  function safeName(n) {
+    var dot = n.lastIndexOf('.'), ext = dot > 0 ? n.slice(dot + 1).toLowerCase().replace(/[^a-z0-9]/g, '') : '';
+    var base = (dot > 0 ? n.slice(0, dot) : n).normalize('NFKD').replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+    return (base || 'file') + '-' + Date.now().toString(36) + (ext ? '.' + ext : '');
+  }
+
+  function loadFiles() {
+    $('f-msg').textContent = '';
+    return SB.files().then(function (rows) {
+      $('f-body').innerHTML = (rows || []).map(function (f) {
+        return '<tr><td>' + esc(f.title) + '</td><td>' + (FOLDERS[f.folder] || esc(f.folder)) + '</td><td class="ltr" style="text-align:right">' + fmtSize(f.size) + '</td><td>' + fmtDate(f.created_at) + '</td>' +
+          '<td class="acts"><button class="btn small quiet danger" data-act="fdel" data-path="' + esc(f.path) + '">حذف</button></td></tr>';
+      }).join('') || '<tr><td colspan="5" class="empty">لا توجد ملفات بعد.</td></tr>';
+    }, function (e) { $('f-msg').textContent = e.message; });
+  }
+
+  $('up-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('up-msg'), b = this.querySelector('button[type=submit]'), f = $('u-file').files[0];
+    m.classList.remove('ok');
+    if (!f) { m.textContent = 'اختر ملفاً.'; return; }
+    if (f.size > 50 * 1048576) { m.textContent = 'الملف أكبر من 50 MB. اضغطه (ZIP) أو قسّمه.'; return; }
+    var folder = $('u-folder').value, title = $('u-title').value.trim() || f.name.replace(/\.[^.]+$/, '');
+    var path = folder + '/' + safeName(f.name);
+    m.textContent = 'جارٍ رفع الملف…'; b.disabled = true;
+    SB.upload(path, f).then(function () {
+      return SB.saveFile({ path: path, title: title, folder: folder, size: f.size });
+    }).then(function () {
+      m.classList.add('ok'); m.textContent = 'تم رفع «' + title + '».';
+      $('u-file').value = ''; $('u-title').value = '';
+      return loadFiles();
+    }, function (err) { m.textContent = err.message; }).then(function () { b.disabled = false; });
+  });
+
+  // ---------------- البداية ----------------
+  SB.session().then(function (s) {
+    if (!s) return gate();
+    return SB.profile().then(function (p) {
+      if (!p || p.role !== 'admin' || !p.active) return gate('هذه الصفحة للأدمن فقط', 'حسابك ليس حساب أدمن. ارجع إلى <a href="files.html">ملفات الدورة</a>.');
+      me = p; $('panel').hidden = false; $('a-pw').value = genPw();
+      return Promise.all([loadUsers(), loadFiles()]);
+    });
+  }).catch(function (e) { gate('تعذّر التحقق من الحساب', esc(e.message)); });
+})();
+</script>
+</body>
+</html>
