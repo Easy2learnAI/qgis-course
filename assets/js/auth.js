@@ -116,6 +116,23 @@
         headers: { 'x-upsert': 'true', 'Content-Type': file.type || 'application/octet-stream', 'cache-control': '3600' } });
     },
 
+    // محتوى الدروس (طرق التنفيذ والشروحات): ملف site/guide.json في المخزن الخاص، للمتدرّبين المفعَّلين فقط.
+    // يُرجع null إذا لم يكن الزائر مسجَّلاً أو كان حسابه موقوفاً.
+    CONTENT_PATH: 'site/guide.json',
+    content: function () {
+      if (!configured()) return Promise.resolve(null);
+      return session().then(function (s) {
+        if (!s) return null;
+        return authed('/storage/v1/object/authenticated/' + BUCKET + '/' + enc(window.SB.CONTENT_PATH), { headers: { 'cache-control': 'no-cache' } })
+          .then(function (d) { return typeof d === 'string' ? JSON.parse(d) : d; },
+                function (e) { if (e.status === 400 || e.status === 401 || e.status === 403 || e.status === 404) return null; throw e; });
+      });
+    },
+    uploadContent: function (file) {
+      return authed('/storage/v1/object/' + BUCKET + '/' + enc(window.SB.CONTENT_PATH), { method: 'POST', body: file,
+        headers: { 'x-upsert': 'true', 'Content-Type': 'application/json', 'cache-control': '60' } });
+    },
+
     // إدارة المتدرّبين عبر الدالة admin-users (تتحقق في الخادم من أن الطالب أدمن)
     admin: function (action, data) {
       var body = data || {}; body.action = action;
