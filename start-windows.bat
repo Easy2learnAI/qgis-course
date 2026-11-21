@@ -23,6 +23,11 @@ call :try "%LOCALAPPDATA%\miniconda3\python.exe"
 call :try "%LOCALAPPDATA%\anaconda3\python.exe"
 for /d %%D in ("%LOCALAPPDATA%\Programs\Python\Python3*") do call :try "%%D\python.exe"
 for /d %%D in ("%ProgramFiles%\Python3*") do call :try "%%D\python.exe"
+call :try "%USERPROFILE%\.local\bin\python3.11.exe"
+for /d %%D in ("%USERPROFILE%\.local\bin\python3*") do call :try "%%D"
+call :try python3.12
+call :try python3.11
+call :try python3.10
 call :try py
 call :try python
 call :try python3
