@@ -30,8 +30,27 @@
       <h2>أهداف التعلّم</h2>
       <ul class="obj-list" id="objectives"></ul>
 
-      <h2>محتوى التمرين</h2>
+      <div class="outline-head">
+        <h2>محتوى التمرين</h2>
+        <button type="button" class="textlink as-btn" id="toggle-all" hidden>اعرض كل التفاصيل</button>
+      </div>
+      <p class="hint" id="steps-hint" hidden>اضغط «طريقة التنفيذ» تحت أي بند لعرض خطواته داخل <span class="ltr">QGIS</span>، كما في الدليل المفصّل (PDF).</p>
       <ol class="outline" id="steps"></ol>
+
+      <section id="extras-sec" hidden>
+        <h2>لإتمام أهداف التعلّم</h2>
+        <div class="guide" id="extras"></div>
+      </section>
+
+      <section id="ge-sec" hidden>
+        <h2 id="ge-title">Google Earth Pro</h2>
+        <div class="guide"><div class="tool g"><div class="th"><span class="ltr">Google Earth Pro</span><span class="opt" id="ge-opt" hidden>تطبيق اختياري</span></div><div class="tb" id="ge"></div></div></div>
+      </section>
+
+      <section id="result-sec" hidden>
+        <h2>النتيجة</h2>
+        <div class="deliv" id="result"></div>
+      </section>
 
       <section id="materials-sec" hidden>
         <h2>المواد</h2>
@@ -44,6 +63,7 @@
 </main>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/data.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/site.js"></script>
 <script src="assets/js/lesson.js"></script>
 </body>

@@ -15,7 +15,8 @@
     <div class="wrap">
       <p class="crumbs"><a href="index.html">الرئيسية</a> / الموارد</p>
       <h1>البرامج والمصطلحات</h1>
-      <p class="lede">كل ما تحتاجه قبل البدء: روابط تحميل البرامج، ومعجم المصطلحات بالعربية والفرنسية والإنجليزية.</p>
+      <p class="lede">كل ما تحتاجه قبل البدء: الدليل المفصّل للدورة، روابط تحميل البرامج، معجم المصطلحات بالعربية والفرنسية والإنجليزية، وملحقات عملية.</p>
+      <div class="lesson-intro"><a class="btn small" href="assets/docs/guide-qgis-google-earth.pdf" download>تحميل الدليل المفصّل (PDF)</a><a class="textlink" href="#appendix">الملحقات العملية</a></div>
     </div>
   </header>
 
@@ -26,6 +27,22 @@
         <p class="lede">ثبّت هذه البرامج. كلها مجانية.</p>
       </div>
       <table class="table tools"><tbody id="tools-body"></tbody></table>
+      <div class="guide" id="crs-tip" style="margin-top:24px"></div>
+    </div>
+  </section>
+
+  <section class="band alt" id="guide">
+    <div class="wrap split">
+      <div>
+        <h2 style="margin-bottom:10px">الدليل المفصّل للدورة</h2>
+        <p style="color:var(--ink-2)">ملف <span class="ltr">PDF</span> يتبع منهاج الموقع وحدةً بوحدة وخطوةً بخطوة: لكل بند من «محتوى التمرين» طريقة تنفيذه في <span class="ltr">QGIS</span>، مع تطبيقات <span class="ltr">Google Earth Pro</span>، ونتيجة كل تمرين، والملحقات.</p>
+        <p style="margin-top:16px"><a class="btn" href="assets/docs/guide-qgis-google-earth.pdf" download>تحميل الدليل (PDF)</a></p>
+      </div>
+      <div>
+        <h2 style="margin-bottom:10px">في صفحات الوحدات</h2>
+        <p style="color:var(--ink-2)">المحتوى نفسه متاح على الموقع: افتح أي وحدة واضغط «طريقة التنفيذ» تحت البند الذي تعمل عليه.</p>
+        <p style="margin-top:16px"><a class="btn quiet" href="lesson.html?u=1">افتح الوحدة 1</a></p>
+      </div>
     </div>
   </section>
 
@@ -47,7 +64,22 @@
     </div>
   </section>
 
-  <section class="band">
+  <section class="band" id="appendix">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>ملحقات عملية</h2>
+        <p class="lede">من الدليل المفصّل: أي برنامج لأي مهمة، أسماء القوائم بالإنجليزية والفرنسية، اختصارات لوحة المفاتيح، والأخطاء الشائعة وحلولها.</p>
+      </div>
+      <div class="guide appendix">
+        <h3 id="compare">QGIS و Google Earth Pro: أي برنامج لأي مهمة</h3><div id="ap-compare"></div>
+        <h3 id="menus">قوائم QGIS بالإنجليزية والفرنسية</h3><div id="ap-menus"></div>
+        <h3 id="shortcuts">اختصارات لوحة المفاتيح</h3><div id="ap-shortcuts"></div>
+        <h3 id="troubles">الأخطاء الشائعة وحلولها</h3><div id="ap-troubles"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt">
     <div class="wrap split">
       <div>
         <h2 style="margin-bottom:10px">للتعمّق أكثر</h2>
@@ -55,6 +87,10 @@
           <li><a href="https://docs.qgis.org/latest/en/docs/" target="_blank" rel="noopener">التوثيق الرسمي لـ <span class="ltr">QGIS</span></a></li>
           <li><a href="https://docs.qgis.org/latest/en/docs/training_manual/" target="_blank" rel="noopener">دليل التدريب الرسمي <span class="ltr">(QGIS Training Manual)</span></a></li>
           <li><a href="https://plugins.qgis.org" target="_blank" rel="noopener">مستودع إضافات <span class="ltr">QGIS</span></a></li>
+          <li><a href="https://urs.earthdata.nasa.gov" target="_blank" rel="noopener">حساب <span class="ltr">NASA Earthdata</span> (لتنزيل <span class="ltr">SRTM</span>)</a></li>
+          <li><a href="https://plugins.qgis.org/plugins/QuickOSM/" target="_blank" rel="noopener">إضافة <span class="ltr">QuickOSM</span></a></li>
+          <li><a href="https://epsg.io" target="_blank" rel="noopener">البحث عن رموز <span class="ltr">EPSG</span></a></li>
+          <li><a href="https://colorbrewer2.org" target="_blank" rel="noopener">لوحات ألوان <span class="ltr">ColorBrewer</span></a></li>
         </ul>
       </div>
       <div>
@@ -67,6 +103,7 @@
 </main>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/data.js"></script>
+<script src="assets/js/guide.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
@@ -83,6 +120,11 @@
   }
   document.getElementById('q').addEventListener('input', function (e) { render(e.target.value.trim()); });
   render('');
+  var A = (window.GUIDE && GUIDE.appendix) || {};
+  ['compare', 'menus', 'shortcuts', 'troubles'].forEach(function (k) {
+    var el = document.getElementById('ap-' + k); if (el && A[k]) el.innerHTML = A[k];
+  });
+  if (window.GUIDE && GUIDE.crsTip) document.getElementById('crs-tip').innerHTML = '<div class="tip">' + GUIDE.crsTip + '</div>';
 })();
 </script>
 </body>
