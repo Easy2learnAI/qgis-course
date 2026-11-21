@@ -19,7 +19,7 @@
 
   var s = '';
   s += '<svg class="map" viewBox="0 0 ' + (MW + 2 * OX) + ' ' + (MH + OY + 52) + '" role="img" aria-labelledby="sheet-t">';
-  s += '<title id="sheet-t">ورقة طوبوغرافية توضيحية مع طبقات قابلة للإظهار والإخفاء</title>';
+  s += '<title id="sheet-t">ورقة طوبوغرافية توضيحية لساحل بجاية مع طبقات قابلة للإظهار والإخفاء</title>';
   s += '<defs><clipPath id="clipmap"><rect width="' + MW + '" height="' + MH + '"/></clipPath>' +
        '<pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#2a6fb0" stroke-width="1" opacity=".55"/></pattern></defs>';
   s += '<g class="map-body">';
@@ -27,7 +27,7 @@
   s += '<g class="collar">';
   s += '<rect x="' + (OX - 8) + '" y="' + (OY - 8) + '" width="' + (MW + 16) + '" height="' + (MH + 16) + '" fill="none" stroke="#1c2b39" stroke-width="1"/>';
   s += '<rect x="' + OX + '" y="' + OY + '" width="' + MW + '" height="' + MH + '" fill="none" stroke="#1c2b39" stroke-width="1.6"/>';
-  s += '<text class="title" x="' + (OX + MW) + '" y="' + (OY - 20) + '" text-anchor="end">ورقة توضيحية</text>';
+  s += '<text class="title" x="' + (OX + MW) + '" y="' + (OY - 20) + '" text-anchor="end">بجاية — ورقة توضيحية</text>';
   s += '<text x="' + OX + '" y="' + (OY - 20) + '">1:50 000</text>';
   lons.forEach(function (l) {
     var x = OX + xOf(l);
@@ -157,7 +157,7 @@
 
   /* ---------------- study areas map ---------------- */
   var list = document.getElementById('area-list');
-  var keys = ['blida', 'blida-mountains', 'eloued'];
+  var keys = ['bejaia', 'blida-mountains', 'eloued'];
   if (list) list.innerHTML = keys.map(function (k) {
     var a = C.areas[k];
     return '<li><button data-area="' + k + '"><h3>' + a.name + '<small>' + a.ex + '</small></h3><p>' + ltr(a.what) + '</p></button></li>';
