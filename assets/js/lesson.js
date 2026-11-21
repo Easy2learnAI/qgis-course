@@ -14,7 +14,7 @@
   if (u.area) chips.push('منطقة الدراسة: ' + C.areas[u.area].name);
   u.tools.forEach(function (t) { chips.push('<span class="ltr">' + t + '</span>'); });
   document.getElementById('chips').innerHTML = chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('') +
-    '<a class="textlink" href="' + (C.guidePdf || '') + '" download>تحميل الدليل المفصّل (PDF)</a>';
+    '<a class="textlink" href="' + (C.guidePdf || '') + '">الدليل المفصّل (PDF)</a>';
 
   document.getElementById('toc').innerHTML = C.units.map(function (x) {
     return '<li><a href="lesson.html?u=' + x.n + '"' + (x.n === n ? ' aria-current="page"' : '') + '><span class="n">' + x.n + '</span><span>' + ltr(x.axis) + '</span></a></li>';
