@@ -34,6 +34,12 @@
         <h2>محتوى التمرين</h2>
         <button type="button" class="textlink as-btn" id="toggle-all" hidden>اعرض كل التفاصيل</button>
       </div>
+      <div class="notice locked" id="locked" hidden>
+        <h3>طريقة التنفيذ والشروحات للمتدرّبين المسجَّلين</h3>
+        <p>يظهر هنا لكل بند شرحه وخطوات تنفيذه داخل <span class="ltr">QGIS</span> و <span class="ltr">Google Earth Pro</span> والنتيجة المطلوبة، بعد الدخول بالحساب الذي يرسله المدرّب.</p>
+        <p class="locked-actions"><a class="btn small" id="locked-login" href="files.html">تسجيل الدخول</a><a class="textlink" href="register.html">التسجيل في الدورة</a></p>
+      </div>
+      <p class="small-note" id="loading" hidden>جارٍ تحميل الشروحات…</p>
       <p class="hint" id="steps-hint" hidden>اضغط «طريقة التنفيذ» تحت أي بند لعرض خطواته داخل <span class="ltr">QGIS</span>، كما في الدليل المفصّل (PDF).</p>
       <ol class="outline" id="steps"></ol>
 
@@ -63,7 +69,7 @@
 </main>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/data.js"></script>
-<script src="assets/js/guide.js"></script>
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/site.js"></script>
 <script src="assets/js/lesson.js"></script>
 </body>

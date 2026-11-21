@@ -91,6 +91,10 @@
 
   if (!SB.configured()) { $('off').hidden = false; return; }
 
+  // بعد الدخول من صفحة وحدة أو الموارد نعود إليها (صفحات الموقع فقط)
+  var next = new URLSearchParams(location.search).get('next') || '';
+  if (!/^(lesson|resources|program|index)\.html(\?u=\d+)?(#[a-z]+)?$/.test(next)) next = '';
+
   function showLogin() { $('login').hidden = false; $('area').hidden = true; }
 
   function renderList(el, empty, rows) {
@@ -120,6 +124,7 @@
       $('to-admin').hidden = p.role !== 'admin';
       $('inactive').hidden = p.active;
       $('lists').hidden = !p.active;
+      if (p.active && next) { location.href = next; return; }
       if (p.active) return loadFiles();
     }, function () { SB.signOut(); showLogin(); });
   }

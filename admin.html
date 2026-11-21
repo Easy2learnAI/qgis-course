@@ -79,6 +79,15 @@
           </table>
         </div>
         <p class="form-msg" id="f-msg" role="alert"></p>
+
+        <!-- ================= محتوى الدروس ================= -->
+        <div class="section-head" style="margin-top:56px"><h2>محتوى الدروس</h2><p class="lede">طرق التنفيذ والشروحات والملحقات التي تظهر في صفحات الوحدات والموارد للمتدرّبين المسجَّلين فقط. تُحفظ في الملف <span class="ltr">guide.json</span> داخل المخزن المحمي، لا في ملفات الموقع العامة.</p></div>
+        <form class="auth-box" id="c-form" novalidate style="max-width:none">
+          <p id="c-status" class="small-note">جارٍ التحقق…</p>
+          <div class="field full" style="margin-top:12px"><label for="c-file">ملف المحتوى <span class="ltr">(guide.json)</span></label><input class="input" id="c-file" type="file" accept=".json,application/json" required></div>
+          <p class="form-msg" id="c-msg" role="alert"></p>
+          <button class="btn" type="submit">رفع / تحديث المحتوى</button>
+        </form>
       </div>
     </div>
   </section>
@@ -208,13 +217,38 @@
     }, function (err) { m.textContent = err.message; }).then(function () { b.disabled = false; });
   });
 
+  // ---------------- محتوى الدروس ----------------
+  function contentStatus() {
+    return SB.content().then(function (G) {
+      $('c-status').textContent = G && G.units
+        ? 'المحتوى مرفوع: ' + Object.keys(G.units).length + ' وحدات' + (G.version ? ' — إصدار ' + G.version : '') + '.'
+        : 'لم يُرفع المحتوى بعد: صفحات الوحدات تعرض العناوين فقط حتى للمتدرّبين.';
+    }, function (e) { $('c-status').textContent = e.message; });
+  }
+  $('c-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('c-msg'), b = this.querySelector('button'), f = $('c-file').files[0];
+    m.classList.remove('ok');
+    if (!f) { m.textContent = 'اختر ملف guide.json.'; return; }
+    b.disabled = true; m.textContent = 'جارٍ التحقق من الملف…';
+    f.text().then(function (t) {
+      var G; try { G = JSON.parse(t); } catch (x) { throw new Error('الملف ليس JSON صالحاً.'); }
+      if (!G || !G.units) throw new Error('الملف لا يحتوي على وحدات الدورة (units).');
+      m.textContent = 'جارٍ الرفع…';
+      return SB.uploadContent(new Blob([t], { type: 'application/json' }));
+    }).then(function () {
+      m.classList.add('ok'); m.textContent = 'تم تحديث محتوى الدروس.'; $('c-file').value = '';
+      return contentStatus();
+    }, function (err) { m.textContent = err.message; }).then(function () { b.disabled = false; });
+  });
+
   // ---------------- البداية ----------------
   SB.session().then(function (s) {
     if (!s) return gate();
     return SB.profile().then(function (p) {
       if (!p || p.role !== 'admin' || !p.active) return gate('هذه الصفحة للأدمن فقط', 'حسابك ليس حساب أدمن. ارجع إلى <a href="files.html">ملفات الدورة</a>.');
       me = p; $('panel').hidden = false; $('a-pw').value = genPw();
-      return Promise.all([loadUsers(), loadFiles()]);
+      return Promise.all([loadUsers(), loadFiles(), contentStatus()]);
     });
   }).catch(function (e) { gate('تعذّر التحقق من الحساب', esc(e.message)); });
 })();

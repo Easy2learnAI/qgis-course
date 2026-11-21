@@ -41,7 +41,7 @@
       </div>
       <div>
         <h2 style="margin-bottom:10px">في صفحات الوحدات</h2>
-        <p style="color:var(--ink-2)">المحتوى نفسه متاح على الموقع: افتح أي وحدة واضغط «طريقة التنفيذ» تحت البند الذي تعمل عليه.</p>
+        <p style="color:var(--ink-2)">بعد الدخول بحسابك، افتح أي وحدة واضغط «طريقة التنفيذ» تحت البند الذي تعمل عليه. الشروحات متاحة للمتدرّبين المسجَّلين فقط.</p>
         <p style="margin-top:16px"><a class="btn quiet" href="lesson.html?u=1">افتح الوحدة 1</a></p>
       </div>
     </div>
@@ -71,7 +71,12 @@
         <h2>ملحقات عملية</h2>
         <p class="lede">من الدليل المفصّل: أي برنامج لأي مهمة، أسماء القوائم بالإنجليزية والفرنسية، اختصارات لوحة المفاتيح، والأخطاء الشائعة وحلولها.</p>
       </div>
-      <div class="guide appendix">
+      <div class="notice locked" id="ap-locked" hidden>
+        <h3>الملحقات للمتدرّبين المسجَّلين</h3>
+        <p>ادخل بالحساب الذي يرسله المدرّب لعرض الملحقات العملية.</p>
+        <p class="locked-actions"><a class="btn small" href="files.html?next=resources.html%23appendix">تسجيل الدخول</a><a class="textlink" href="register.html">التسجيل في الدورة</a></p>
+      </div>
+      <div class="guide appendix" id="ap-body" hidden>
         <h3 id="compare">QGIS و Google Earth Pro: أي برنامج لأي مهمة</h3><div id="ap-compare"></div>
         <h3 id="menus">قوائم QGIS بالإنجليزية والفرنسية</h3><div id="ap-menus"></div>
         <h3 id="shortcuts">اختصارات لوحة المفاتيح</h3><div id="ap-shortcuts"></div>
@@ -104,7 +109,7 @@
 </main>
 <script src="assets/js/config.js"></script>
 <script src="assets/js/data.js"></script>
-<script src="assets/js/guide.js"></script>
+<script src="assets/js/auth.js"></script>
 <script src="assets/js/site.js"></script>
 <script>
 (function () {
@@ -121,11 +126,16 @@
   }
   document.getElementById('q').addEventListener('input', function (e) { render(e.target.value.trim()); });
   render('');
-  var A = (window.GUIDE && GUIDE.appendix) || {};
-  ['compare', 'menus', 'shortcuts', 'troubles'].forEach(function (k) {
-    var el = document.getElementById('ap-' + k); if (el && A[k]) el.innerHTML = A[k];
-  });
-  if (window.GUIDE && GUIDE.crsTip) document.getElementById('crs-tip').innerHTML = '<div class="tip">' + GUIDE.crsTip + '</div>';
+  // الملحقات ونصيحة الإسقاط من المحتوى المحمي (للمتدرّبين المسجَّلين فقط)
+  SB.content().then(function (G) {
+    if (!G) { document.getElementById('ap-locked').hidden = false; return; }
+    var A = G.appendix || {};
+    ['compare', 'menus', 'shortcuts', 'troubles'].forEach(function (k) {
+      var el = document.getElementById('ap-' + k); if (el && A[k]) el.innerHTML = A[k];
+    });
+    document.getElementById('ap-body').hidden = false;
+    if (G.crsTip) document.getElementById('crs-tip').innerHTML = '<div class="tip">' + G.crsTip + '</div>';
+  }, function () { document.getElementById('ap-locked').hidden = false; });
 })();
 </script>
 </body>
