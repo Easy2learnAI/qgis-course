@@ -33,9 +33,9 @@
       fr: "D'une carte papier numérisée à un projet SIG complet"
     },
     hero_desc: {
-      ar: 'منصة تدريبية في نظم المعلومات الجغرافية بـ QGIS و Google Earth على بيانات حقيقية من الجزائر، مع مكتبة رقمية للكتب والمراجع عبر Google Drive.',
-      en: 'A training platform in GIS with QGIS and Google Earth on real data from Algeria, with a digital library of books and references on Google Drive.',
-      fr: 'Une plateforme de formation aux SIG avec QGIS et Google Earth sur des données réelles d’Algérie, avec une bibliothèque numérique de livres et de références sur Google Drive.'
+      ar: 'منصة تدريبية في نظم المعلومات الجغرافية بـ QGIS و Google Earth على بيانات حقيقية من الجزائر، مع مكتبة رقمية للكتب والمراجع.',
+      en: 'A training platform in GIS with QGIS and Google Earth on real data from Algeria, with a digital library of books and references.',
+      fr: 'Une plateforme de formation aux SIG avec QGIS et Google Earth sur des données réelles d’Algérie, avec une bibliothèque numérique de livres et de références.'
     },
     hero_btn_courses: {
       ar: 'استكشف جميع الدورات',
@@ -115,9 +115,9 @@
       fr: 'Bibliothèque de Livres & Références Numériques'
     },
     home_books_lede: {
-      ar: 'كتب تخصصية ومراجع علمية للتحميل المجاني عبر Google Drive.',
-      en: 'Specialized books and scientific references, free to download from Google Drive.',
-      fr: 'Livres spécialisés et références scientifiques, en téléchargement gratuit sur Google Drive.'
+      ar: 'كتب تخصصية ومراجع علمية للتحميل المجاني.',
+      en: 'Specialized books and scientific references, free to download.',
+      fr: 'Livres spécialisés et références scientifiques, en téléchargement gratuit.'
     },
     home_books_note: {
       ar: 'كل الكتب متاحة للتحميل مجاناً للجميع.',
@@ -292,9 +292,9 @@
       fr: 'Bibliothèque de Livres & Références Géographiques'
     },
     books_head_lede: {
-      ar: 'مراجع متقدمة وكتب تخصصية في نظم المعلومات الجغرافية، الاستشعار عن بعد، وهندسة المياه، مع روابط تحميل مباشرة عبر Google Drive.',
-      en: 'Advanced references and specialized textbooks in GIS, Remote Sensing, and Water Engineering, with direct Google Drive downloads.',
-      fr: "Références avancées et manuels spécialisés en SIG, Télédétection et Ingénierie de l'eau, avec liens de téléchargement direct Google Drive."
+      ar: 'مراجع متقدمة وكتب تخصصية في نظم المعلومات الجغرافية، الاستشعار عن بعد، وهندسة المياه، مع روابط تحميل مباشرة.',
+      en: 'Advanced references and specialized textbooks in GIS, Remote Sensing, and Water Engineering, with direct download links.',
+      fr: "Références avancées et manuels spécialisés en SIG, Télédétection et Ingénierie de l'eau, avec liens de téléchargement direct."
     },
     books_search_placeholder: {
       ar: 'ابحث عن كتاب، مؤلف، أو موضوع…',
@@ -319,9 +319,9 @@
     btn_register_course: { ar: 'حجز مقعد والتسجيل', en: 'Register Now', fr: 'S’inscrire' },
     btn_view_book_details: { ar: 'عرض الكتاب والتحميل ↗', en: 'View & Download Book ↗', fr: 'Voir & Télécharger ↗' },
     btn_download_drive: {
-      ar: 'تحميل عبر Google Drive 📥',
-      en: 'Download via Google Drive 📥',
-      fr: 'Télécharger via Google Drive 📥'
+      ar: 'تحميل 📥',
+      en: 'Download 📥',
+      fr: 'Télécharger 📥'
     },
 
     // Registration Page (register.html)
