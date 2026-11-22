@@ -470,6 +470,14 @@
     },
     books_none: { ar: 'لم تُنشر كتب في المكتبة بعد.', en: 'No books have been published yet.', fr: 'Aucun livre n’a encore été publié.' },
     books_no_match: { ar: 'لا توجد كتب مطابقة لبحثك في هذا القسم.', en: 'No books match your search in this section.', fr: 'Aucun livre ne correspond à votre recherche dans cette rubrique.' },
+    share_btn: { ar: 'مشاركة', en: 'Share', fr: 'Partager' },
+    share_head: { ar: 'شارك عبر', en: 'Share via', fr: 'Partager via' },
+    share_email: { ar: 'البريد الإلكتروني', en: 'Email', fr: 'E-mail' },
+    share_copy: { ar: 'نسخ الرابط', en: 'Copy link', fr: 'Copier le lien' },
+    share_copied: { ar: 'تم نسخ الرابط ✓', en: 'Link copied ✓', fr: 'Lien copié ✓' },
+    share_book_text: { ar: 'كتاب للتحميل المجاني: {t}', en: 'Free book to download: {t}', fr: 'Livre à télécharger gratuitement : {t}' },
+    share_course_text: { ar: 'دورة تدريبية: {t}', en: 'Training course: {t}', fr: 'Formation : {t}' },
+    share_program_text: { ar: 'دورة QGIS و Google Earth التطبيقية على بيانات حقيقية من الجزائر', en: 'Hands-on QGIS & Google Earth course on real data from Algeria', fr: 'Formation pratique QGIS & Google Earth sur des données réelles d’Algérie' },
     book_link_missing: { ar: 'الرابط غير متاح حالياً', en: 'Link not available', fr: 'Lien indisponible' },
 
     // ---------- الوحدات ----------

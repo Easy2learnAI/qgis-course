@@ -9,6 +9,9 @@
         '<td>' + (u.exercise ? '<b>' + esc(u.exercise) + ':</b> ' : '') + txt(u.exTitle) + '</td>' +
         '<td><a class="textlink" href="lesson.html?u=' + u.n + '">' + open + '</a></td></tr>';
     }).join('');
+    var slot = document.getElementById('share-course');
+    if (slot && window.SHARE) slot.innerHTML = SHARE.button({ url: 'program.html', label: true,
+      title: 'QGIS & Google Earth — Delta Conception', text: window.I18N.t('share_program_text') });
   }
   render();
   window.addEventListener('deltalangchange', render);

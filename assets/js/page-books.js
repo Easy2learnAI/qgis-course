@@ -28,13 +28,14 @@
         ? '<a class="btn small book-dl-btn" href="' + esc(b.drive_url) + '" data-book="' + esc(b.title) + '" target="_blank" rel="noopener noreferrer">' + esc(tr('btn_download_drive')) + '</a>'
         : '<button class="btn small quiet book-dl-btn" type="button" disabled>' + esc(tr('book_link_missing')) + '</button>';
       var meta = [b.pages, b.year].filter(Boolean).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('');
-      return '<article class="book-card">' + B.coverHtml(b) +
+      return '<article class="book-card"' + (b.id ? ' id="book-' + esc(b.id) + '"' : '') + '>' + B.coverHtml(b) +
         '<div class="book-info"><h3 class="book-title">' + txt(b.title) + '</h3>' +
         (b.author ? '<p class="book-author">' + txt(b.author) + '</p>' : '') +
         (b.description ? '<p class="book-desc">' + txt(b.description) + '</p>' : '') +
         (meta ? '<div class="book-meta-bottom">' + meta + '</div>' : '') +
-        '<div class="book-action">' + btn + '</div></div></article>';
+        '<div class="book-action">' + btn + B.shareHtml(b) + '</div></div></article>';
     }).join('');
+    if (state === 'ok' && window.SHARE) SHARE.focusHash();
   }
 
   $('category-filters').addEventListener('click', function (e) {

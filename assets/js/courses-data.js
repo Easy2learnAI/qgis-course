@@ -110,10 +110,14 @@
     if (c.status === 'live') act.push('<a class="btn small" href="' + esc(c.detailsUrl) + '">' + esc(tr('btn_enter_course')) + '</a>');
     else if (c.detailsUrl) act.push('<a class="btn small quiet" href="' + esc(c.detailsUrl) + '"' + (c.detailsExternal ? ' target="_blank" rel="noopener"' : '') + '>' + esc(tr('btn_course_details')) + '</a>');
     act.push('<a class="btn small' + (c.status === 'live' ? ' quiet' : '') + '" href="' + c.registerUrl + '">' + esc(tr(c.status === 'soon' ? 'btn_notify_me' : 'btn_register_course')) + '</a>');
+    if (window.SHARE) act.push(window.SHARE.button({
+      url: c.builtin ? 'program.html' : 'courses.html#course-' + encodeURIComponent(c.id),
+      title: c.title, text: tr('share_course_text').replace('{t}', c.title + (c.tagline ? ' — ' + c.tagline : ''))
+    }));
     var meta = [];
     if (c.level) meta.push('<span>' + esc(tr('card_level')) + ' <b>' + esc(c.level) + '</b></span>');
     meta.push('<span>' + esc(tr('card_field')) + ' <b>' + esc(c.categoryName) + '</b></span>');
-    return '<article class="course-card' + (c.status === 'live' ? ' active-course' : '') + '">' +
+    return '<article class="course-card' + (c.status === 'live' ? ' active-course' : '') + '" id="course-' + esc(c.id) + '">' +
       '<div class="course-header"><div class="course-meta-top"><span class="tag ' + c.badgeType + '">' + esc(c.badge) + '</span>' +
       (c.duration ? '<span class="course-duration">' + esc(c.duration) + '</span>' : '') + '</div>' +
       '<h3>' + txt(c.title) + '</h3>' + (c.tagline ? '<p class="course-tagline">' + txt(c.tagline) + '</p>' : '') + '</div>' +

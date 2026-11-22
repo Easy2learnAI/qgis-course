@@ -167,7 +167,7 @@
         '<p class="book-author">' + txt(b.author || '—') + '</p>' +
         '<div class="book-action">' + (/^https?:\/\//i.test(b.drive_url)
           ? '<a class="btn small book-dl-btn" href="' + esc(b.drive_url) + '" data-book="' + esc(b.title) + '" target="_blank" rel="noopener noreferrer">' + esc(tr('btn_download_drive')) + '</a>'
-          : '<a class="btn small quiet book-dl-btn" href="books.html">' + esc(tr('btn_view_book_details')) + '</a>') + '</div>' +
+          : '<a class="btn small quiet book-dl-btn" href="books.html">' + esc(tr('btn_view_book_details')) + '</a>') + window.BOOKS.shareHtml(b) + '</div>' +
         '</div></article>';
     }).join('');
   }

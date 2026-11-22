@@ -49,6 +49,16 @@
     return '<div class="book-cover-wrap">' + PLACEHOLDER + img + badge + '</div>';
   }
 
+  // زر مشاركة الكتاب: يشير إلى بطاقته في صفحة المكتبة (لا إلى ملف Drive مباشرة)
+  function shareHtml(b) {
+    if (!window.SHARE) return '';
+    var t = b.title + (b.author ? ' — ' + b.author : '');
+    return window.SHARE.button({
+      url: 'books.html' + (b.id ? '#book-' + encodeURIComponent(b.id) : ''),
+      title: b.title, text: window.I18N.t('share_book_text').replace('{t}', t)
+    });
+  }
+
   function cached() {
     var c = window.store ? window.store.get(CACHE_KEY, null) : null;
     return c && Array.isArray(c.rows) ? c.rows : [];
@@ -67,5 +77,5 @@
     return pending;
   }
 
-  window.BOOKS = { CATS: CATS, localize: localize, coverHtml: coverHtml, cached: cached, load: load };
+  window.BOOKS = { CATS: CATS, localize: localize, coverHtml: coverHtml, shareHtml: shareHtml, cached: cached, load: load };
 })();

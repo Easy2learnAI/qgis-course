@@ -20,6 +20,7 @@
     var shown = filter === 'all' ? all : all.filter(function (c) { return c.category === filter; });
     container.innerHTML = shown.length ? shown.map(CO.cardHtml).join('') : '<p class="empty">' + esc(tr('courses_empty')) + '</p>';
     $('more-soon').hidden = all.length > 1;
+    if (window.SHARE) SHARE.focusHash();
   }
 
   filters.addEventListener('click', function (e) {
