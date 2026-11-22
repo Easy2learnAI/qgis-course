@@ -17,7 +17,15 @@
     return String(s == null ? '' : s).replace(/(\(?[A-Za-z][A-Za-z0-9 .\/()\-:,&]*[A-Za-z0-9)])/g, '<span class="ltr">$1</span>');
   };
   // نص آمن للعرض: يُهرَّب دائماً، ويُعزل اللاتيني عند العرض بالعربية
-  window.txt = function (s) { var e = window.esc(s); return lang() === 'ar' ? window.ltr(e) : e; };
+  // يُطبَّق العزل على النص الخام ثم يُهرَّب كل جزء، حتى لا يقطع العزلُ رموزاً مثل &amp; و &lt;
+  var LATIN = /(\(?[A-Za-z][A-Za-z0-9 .\/()\-:,&]*[A-Za-z0-9)])/g;
+  window.txt = function (s) {
+    s = String(s == null ? '' : s);
+    if (lang() !== 'ar') return window.esc(s);
+    return s.split(LATIN).map(function (part, i) {
+      return i % 2 ? '<span class="ltr">' + window.esc(part) + '</span>' : window.esc(part);
+    }).join('');
+  };
   window.store = {
     get: function (k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }

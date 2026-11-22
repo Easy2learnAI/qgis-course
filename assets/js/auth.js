@@ -221,6 +221,24 @@
         .catch(function (e) { throw tableErr(e, 'stats'); });
     },
 
+    // روابط صفحة الموارد — الجدول resource_links في _setup/supabase/links.sql
+    getLinks: function () {
+      if (!configured()) return Promise.resolve([]);
+      var path = '/rest/v1/resource_links?select=*&order=sort_order.asc,created_at.asc';
+      return session().then(function (s) { return s ? authed(path) : req(path); })
+        .catch(function (e) { throw tableErr(e, 'links'); });
+    },
+    saveLink: function (row, id) {
+      return (id
+        ? authed('/rest/v1/resource_links?id=eq.' + encodeURIComponent(id), { method: 'PATCH', json: row, headers: { Prefer: 'return=minimal' } })
+        : authed('/rest/v1/resource_links', { method: 'POST', json: row, headers: { Prefer: 'return=minimal' } })
+      ).catch(function (e) { throw tableErr(e, 'links'); });
+    },
+    deleteLink: function (id) {
+      return authed('/rest/v1/resource_links?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
+        .catch(function (e) { throw tableErr(e, 'links'); });
+    },
+
     deleteCourse: function (id) {
       return authed('/rest/v1/courses?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
         .catch(function (e) { throw tableErr(e, 'courses'); });
@@ -232,6 +250,7 @@
     var b = e.body || {}, m = String(b.message || b.error || '');
     var missing = e.status === 404 || b.code === '42P01' || b.code === 'PGRST205' || b.code === 'PGRST202' || /not find|does not exist|not found/i.test(m);
     if (missing) e.message = what === 'stats' ? 'الإحصائيات غير مفعَّلة بعد: شغّل الملف _setup/supabase/stats.sql مرة واحدة في SQL Editor.'
+      : what === 'links' ? 'جدول روابط الموارد غير موجود بعد: شغّل الملف _setup/supabase/links.sql مرة واحدة في SQL Editor.'
       : tr(what === 'courses' ? 'err_courses_table' : what === 'covers' ? 'err_covers_bucket' : 'err_books_table');
     return e;
   }

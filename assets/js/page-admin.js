@@ -71,8 +71,8 @@
   document.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-act]'); if (!b) return;
     var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
-    if (/^(cedit|bedit|cvis|bvis)$/.test(act)) return;          // تعالجها أدوات الدورات والكتب
-    if ((act === 'del' || act === 'fdel' || act === 'bdel' || act === 'cdel') && !b.classList.contains('confirm')) {
+    if (/^(cedit|bedit|cvis|bvis|ledit|lvis)$/.test(act)) return;          // تعالجها أدوات الدورات والكتب
+    if ((act === 'del' || act === 'fdel' || act === 'bdel' || act === 'cdel' || act === 'ldel') && !b.classList.contains('confirm')) {
       b.classList.add('confirm'); b.dataset.label = b.textContent; b.textContent = 'تأكيد الحذف؟';
       setTimeout(function () { if (b.isConnected) { b.classList.remove('confirm'); b.textContent = b.dataset.label; } }, 4000);
       return;
@@ -93,6 +93,11 @@
       try { localStorage.removeItem(CO.CACHE_KEY); } catch (x) {}
       return loadCourses();
     });
+    else if (act === 'ldel') p = SB.deleteLink(id).then(function () {
+      if (editingLink === id) { $('l-editor').hidden = true; editingLink = null; }
+      try { localStorage.removeItem(LINKS_KEY); } catch (x) {}
+      return loadLinks();
+    });
     else if (act === 'bdel') {
       var gone = CO.byId(bookRows, id);
       p = SB.deleteBook(id).then(function () {
@@ -102,7 +107,7 @@
         return loadBooksAdmin();
       });
     }
-    p.catch(function (err) { $({ fdel: 'f-msg', bdel: 'b-tbl-msg', cdel: 'co-tbl-msg' }[act] || 't-msg').textContent = err.message; })
+    p.catch(function (err) { $({ fdel: 'f-msg', bdel: 'b-tbl-msg', cdel: 'co-tbl-msg', ldel: 'l-tbl-msg' }[act] || 't-msg').textContent = err.message; })
      .then(function () { if (b.isConnected) b.disabled = false; });
   });
 
@@ -410,6 +415,95 @@
     }
   });
 
+  // ---------------- روابط صفحة الموارد ----------------
+  var linkRows = [], editingLink = null, LINKS_KEY = 'delta_links_v1';
+  var LINK_CAT_AR = { data: 'بيانات وخرائط', learning: 'دروس ومراجع للتعلّم', tools: 'أدوات على الإنترنت', software: 'برامج وإضافات', other: 'روابط أخرى' };
+
+  function linkFromForm() {
+    var r = { url: val('l-url'), title: val('l-title'), description: val('l-desc') || null, category: $('l-cat').value,
+      sort_order: parseInt($('l-order').value, 10) || 10, active: $('l-active').checked };
+    ['en', 'fr'].forEach(function (l) { r['title_' + l] = val('l-title-' + l) || null; r['description_' + l] = val('l-desc-' + l) || null; });
+    return r;
+  }
+  function fillLinkForm(r) {
+    r = r || {};
+    $('l-url').value = r.url || ''; $('l-title').value = r.title || ''; $('l-desc').value = r.description || '';
+    $('l-cat').value = LINK_CAT_AR[r.category] ? r.category : 'learning';
+    $('l-order').value = r.sort_order || 10; $('l-active').checked = r.active !== false;
+    ['en', 'fr'].forEach(function (l) { $('l-title-' + l).value = r['title_' + l] || ''; $('l-desc-' + l).value = r['description_' + l] || ''; });
+    $('l-msg').textContent = ''; $('l-msg').classList.remove('ok');
+    previewLink();
+  }
+  function linkHost(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } }
+  function previewLink() {
+    var r = linkFromForm(), u = r.url, h = okUrl(u) ? linkHost(u) : '';
+    var t = $('l-url-test'); t.hidden = !okUrl(u); if (okUrl(u)) t.href = u;
+    $('l-preview').innerHTML = '<li><span class="link-card"><span class="lc-title"><span>' + txt(r.title || 'عنوان الرابط') + '</span><span aria-hidden="true">↗</span></span>' +
+      (r.description ? '<span class="lc-desc">' + txt(r.description) + '</span>' : '') +
+      '<span class="lc-host ltr">' + esc(h || 'example.com') + '</span></span></li>';
+  }
+  $('l-form').addEventListener('input', previewLink);
+  $('l-form').addEventListener('change', previewLink);
+  $('l-new').addEventListener('click', function () {
+    editingLink = null; $('l-form-title').textContent = 'رابط جديد'; $('l-save').textContent = 'حفظ الرابط';
+    fillLinkForm(null); openEditor('l-editor', 'l-url');
+  });
+  $('l-cancel').addEventListener('click', function () { $('l-editor').hidden = true; editingLink = null; });
+  // لصق رابط بلا https:// يُكمَّل تلقائياً
+  $('l-url').addEventListener('blur', function () {
+    var v = this.value.trim();
+    if (v && !/^[a-z]+:/i.test(v) && /^[\w-]+(\.[\w-]+)+/.test(v)) { this.value = 'https://' + v; previewLink(); }
+  });
+
+  $('l-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = $('l-msg'), btn = $('l-save'), r = linkFromForm();
+    m.classList.remove('ok');
+    if (!okUrl(r.url)) { m.textContent = 'الصق رابطاً صحيحاً يبدأ بـ https://'; $('l-url').focus(); return; }
+    if (!r.title) { m.textContent = 'اكتب عنوان الرابط.'; $('l-title').focus(); return; }
+    var dup = linkRows.filter(function (x) { return x.url === r.url && x.id !== editingLink; })[0];
+    if (dup) { m.textContent = 'هذا الرابط موجود من قبل باسم «' + dup.title + '».'; return; }
+    if (!editingLink) r.id = newId('l-');
+    btn.disabled = true; m.textContent = 'جارٍ الحفظ…';
+    SB.saveLink(r, editingLink).then(function () {
+      m.classList.add('ok'); m.textContent = editingLink ? 'تم حفظ التعديلات.' : 'تمت إضافة الرابط «' + r.title + '» إلى صفحة الموارد.';
+      try { localStorage.removeItem(LINKS_KEY); } catch (x) {}
+      if (!editingLink) { editingLink = r.id; $('l-form-title').textContent = 'تعديل الرابط'; $('l-save').textContent = 'حفظ التعديلات'; }
+      return loadLinks();
+    }).catch(function (err) { m.textContent = err.message; }).then(function () { btn.disabled = false; });
+  });
+
+  function loadLinks() {
+    $('l-tbl-msg').textContent = '';
+    return SB.getLinks().then(function (rows) {
+      linkRows = rows || [];
+      $('l-count').textContent = '(' + linkRows.length + ')'; $('nav-l').textContent = linkRows.length;
+      $('l-body').innerHTML = linkRows.map(function (r) {
+        var vis = r.active === false ? '<span class="tag off">مخفي</span>' : '<span class="tag on">ظاهر</span>';
+        return '<tr><td><b>' + txt(r.title) + '</b><br><a class="small-note ltr" href="' + esc(r.url) + '" target="_blank" rel="noopener noreferrer">' + esc(linkHost(r.url)) + ' ↗</a></td>' +
+          '<td>' + esc(LINK_CAT_AR[r.category] || r.category) + '</td><td>' + esc(r.sort_order) + '</td><td>' + vis + '</td>' +
+          '<td class="acts"><button class="btn small quiet" type="button" data-act="ledit" data-id="' + esc(r.id) + '">تعديل</button>' +
+          '<button class="btn small quiet" type="button" data-act="lvis" data-id="' + esc(r.id) + '">' + (r.active === false ? 'إظهار' : 'إخفاء') + '</button>' +
+          '<button class="btn small quiet danger" type="button" data-act="ldel" data-id="' + esc(r.id) + '">حذف</button></td></tr>';
+      }).join('') || '<tr><td colspan="5" class="empty">لا توجد روابط بعد. اضغط «+ إضافة رابط جديد».</td></tr>';
+    }, function (e) { $('l-count').textContent = ''; $('nav-l').textContent = ''; $('l-body').innerHTML = ''; $('l-tbl-msg').textContent = e.message; });
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    var act = b.getAttribute('data-act'), id = b.getAttribute('data-id');
+    if (act === 'ledit') {
+      var r = CO.byId(linkRows, id); if (!r) return;
+      editingLink = id; $('l-form-title').textContent = 'تعديل الرابط'; $('l-save').textContent = 'حفظ التعديلات';
+      fillLinkForm(r); openEditor('l-editor', 'l-title');
+    } else if (act === 'lvis') {
+      var row = CO.byId(linkRows, id); if (!row) return;
+      b.disabled = true;
+      SB.saveLink({ active: row.active === false }, id).then(loadLinks)
+        .catch(function (err) { $('l-tbl-msg').textContent = err.message; b.disabled = false; });
+      try { localStorage.removeItem(LINKS_KEY); } catch (x) {}
+    }
+  });
+
   // ---------------- البداية ----------------
   SB.session().then(function (s) {
     if (!s) return gate();
@@ -419,8 +513,9 @@
       var h = location.hash;
       if (h === '#add-course') $('co-new').click();
       else if (h === '#add-book') $('b-new').click();
+      else if (h === '#add-link') $('l-new').click();
       else if (h && $(h.slice(1))) setTimeout(function () { $(h.slice(1)).scrollIntoView(); }, 50);
-      return Promise.all([window.ADMIN_STATS ? ADMIN_STATS.init().catch(function () {}) : null, loadUsers(), loadFiles(), contentStatus(), loadCourses(), loadBooksAdmin()]);
+      return Promise.all([window.ADMIN_STATS ? ADMIN_STATS.init().catch(function () {}) : null, loadUsers(), loadFiles(), contentStatus(), loadCourses(), loadBooksAdmin(), loadLinks()]);
     });
   }).catch(function (e) { gate('تعذّر التحقق من الحساب', esc(e.message)); });
 })();
