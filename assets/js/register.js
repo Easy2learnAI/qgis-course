@@ -65,6 +65,7 @@
     var d = {}; new FormData(form).forEach(function (v, k) { d[k] = String(v).trim(); });
     if (d.website) { showDone(d); return; }   // spam bot filled the hidden field
     delete d.website;
+    var courseId = d.course;
     d.course = courseLabel(d.course);
     d.date = new Date().toISOString();
     if (local) {
@@ -76,7 +77,7 @@
       ? fetch(SITE.formEndpoint, { method: 'POST', mode: 'no-cors', body: JSON.stringify(d) }).then(function () {})
       : fetch(SITE.formEndpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(d) })
           .then(function (r) { if (!r.ok) throw 0; });
-    req.then(function () { showDone(d); })
+    req.then(function () { if (window.TRACK) TRACK.event('register', courseId); showDone(d); })
       .catch(function () {
         btn.disabled = false; btn.textContent = tr('reg_submit_btn');
         var em = document.getElementById('reg-error');

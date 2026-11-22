@@ -600,7 +600,7 @@ html[dir="rtl"] .glossary td[dir="ltr"]{text-align:right}
 .admin-nav a:hover{background:var(--paper-2);color:var(--ink)}
 .admin-nav .count{font-size:12px;background:var(--paper-2);border-radius:10px;padding:0 7px;margin-inline-start:4px}
 .admin-sec{margin-top:64px;scroll-margin-top:140px}
-#trainees.admin-sec{margin-top:32px}
+#stats.admin-sec{margin-top:32px}
 .editor{display:grid;grid-template-columns:minmax(0,3fr) minmax(260px,2fr);gap:28px;align-items:start;margin:8px 0 28px}
 .editor .auth-box{max-width:none}
 .editor .preview{position:sticky;top:150px}
@@ -627,3 +627,51 @@ html[dir="rtl"] .glossary td[dir="ltr"]{text-align:right}
   .editor .preview{position:static}
   .form.two{grid-template-columns:1fr}
 }
+
+/* ---------- لوحة الإدارة: الإحصائيات ---------- */
+.stats-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:14px}
+.stats-bar .seg{margin:0}
+.st-self{display:flex;align-items:center;gap:8px;font-size:var(--s-1);color:var(--ink-2);cursor:pointer;margin-inline-start:auto}
+.form-msg.info{color:var(--ink-2);background:var(--water-tint);border-radius:var(--r);padding:10px 14px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:6px 0 22px}
+.kpi{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi-label{font-size:var(--s-1);color:var(--ink-2);font-weight:600}
+.kpi-val{font-family:var(--f-display);font-size:var(--s3);line-height:1.3;color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi-sub{font-size:13px;color:var(--ink-3);line-height:1.5}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:16px;margin-bottom:22px}
+.chart-card{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px 8px;margin:0;min-width:0}
+.chart-card h3{font-size:var(--s1);margin:0}
+.chart-card .small-note{margin:0 0 6px}
+.chart{position:relative;width:100%;min-height:230px;direction:ltr}
+.chart-svg{display:block;touch-action:pan-y}
+.chart-svg text{font-family:"DejaVu Sans",Tahoma,sans-serif;font-size:11px;fill:var(--ink-3)}
+.chart-svg .ytick{text-anchor:end}
+.chart-svg .xtick{text-anchor:middle}
+.chart-svg .grid{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.chart-svg .grid.base{stroke:var(--ink-3);stroke-dasharray:none}
+.chart-svg .bar{transition:opacity .15s}
+.chart-svg:hover .bar{opacity:.55}
+.chart-svg .bar.on{opacity:1}
+.chart-svg .line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart-svg .area{opacity:.1}
+.chart-svg .end{stroke:#fff;stroke-width:2}
+.chart-svg .cross{stroke:var(--ink-3);stroke-width:1}
+.chart-tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;border-radius:var(--r);padding:6px 10px;font-size:13px;line-height:1.6;display:flex;flex-direction:column;white-space:nowrap;direction:rtl;text-align:right;box-shadow:0 4px 14px rgba(0,0,0,.18);z-index:2}
+.chart-tip[hidden]{display:none}
+.stat-lists{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin-bottom:18px}
+.stat-list{background:#fff;border:1px solid var(--rule);border-radius:var(--r);padding:14px 16px;min-width:0}
+.stat-list h3{font-size:var(--s0);margin:0}
+.stat-list .small-note{margin:0 0 8px}
+.stat-list ol{list-style:none;margin:0;padding:0}
+.stat-list li{position:relative;display:flex;justify-content:space-between;gap:12px;padding:5px 0 9px;font-size:var(--s-1);border-bottom:1px solid var(--paper-2)}
+.stat-list li:last-child{border-bottom:0}
+.stat-list li.empty{color:var(--ink-3);display:block}
+.sl-k{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sl-v{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.sl-v small{font-weight:400;color:var(--ink-3)}
+.sl-bar{position:absolute;bottom:3px;inset-inline-start:0;height:3px;border-radius:2px;background:var(--water);opacity:.55}
+.st-table-box{margin-bottom:8px}
+.st-daily{min-width:560px}
+.st-daily td,.st-daily th{text-align:center}
+.st-daily td:first-child{direction:ltr;text-align:right;font-weight:600}
+@media (max-width:640px){.st-self{margin-inline-start:0}.kpi-val{font-size:var(--s2)}}

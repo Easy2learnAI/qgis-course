@@ -1,4 +1,4 @@
-/* لوحة الإدارة (بالعربية فقط): المتدرّبون، الملفات المحمية، محتوى الدروس، ومكتبة الكتب */
+/* لوحة الإدارة (بالعربية فقط): الإحصائيات، المتدرّبون، الملفات المحمية، محتوى الدروس، الدورات، ومكتبة الكتب */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var me = null;
@@ -420,7 +420,7 @@
       if (h === '#add-course') $('co-new').click();
       else if (h === '#add-book') $('b-new').click();
       else if (h && $(h.slice(1))) setTimeout(function () { $(h.slice(1)).scrollIntoView(); }, 50);
-      return Promise.all([loadUsers(), loadFiles(), contentStatus(), loadCourses(), loadBooksAdmin()]);
+      return Promise.all([window.ADMIN_STATS ? ADMIN_STATS.init().catch(function () {}) : null, loadUsers(), loadFiles(), contentStatus(), loadCourses(), loadBooksAdmin()]);
     });
   }).catch(function (e) { gate('تعذّر التحقق من الحساب', esc(e.message)); });
 })();

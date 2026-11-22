@@ -25,7 +25,7 @@
     if (!list.length) { container.innerHTML = '<p class="empty">' + esc(tr('books_no_match')) + '</p>'; return; }
     container.innerHTML = list.map(function (b) {
       var btn = /^https?:\/\//i.test(b.drive_url)
-        ? '<a class="btn small book-dl-btn" href="' + esc(b.drive_url) + '" target="_blank" rel="noopener noreferrer">' + esc(tr('btn_download_drive')) + '</a>'
+        ? '<a class="btn small book-dl-btn" href="' + esc(b.drive_url) + '" data-book="' + esc(b.title) + '" target="_blank" rel="noopener noreferrer">' + esc(tr('btn_download_drive')) + '</a>'
         : '<button class="btn small quiet book-dl-btn" type="button" disabled>' + esc(tr('book_link_missing')) + '</button>';
       var meta = [b.pages, b.year].filter(Boolean).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('');
       return '<article class="book-card">' + B.coverHtml(b) +

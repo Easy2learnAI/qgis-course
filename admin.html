@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
-<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
+<link rel="stylesheet" href="assets/css/main.css?v=34c449e1">
 </head>
 <body data-page="admin">
 <main id="main">
@@ -20,7 +20,7 @@
     <div class="wrap">
       <p class="crumbs"><a href="index.html">الرئيسية</a> / <a href="files.html">ملفات الدورة</a> / لوحة الإدارة</p>
       <h1>لوحة الإدارة</h1>
-      <p class="lede">المتدرّبون، الملفات المحمية، محتوى الدروس، الدورات، ومكتبة الكتب — كلها من هذه الصفحة.</p>
+      <p class="lede">إحصائيات الزوار، المتدرّبون، الملفات المحمية، محتوى الدروس، الدورات، ومكتبة الكتب — كلها من هذه الصفحة.</p>
     </div>
   </header>
 
@@ -33,12 +33,49 @@
 
       <div id="panel" hidden>
         <nav class="admin-nav" aria-label="أقسام لوحة الإدارة">
+          <a href="#stats">الإحصائيات <span class="count" id="nav-s"></span></a>
           <a href="#trainees">المتدرّبون <span class="count" id="nav-t"></span></a>
           <a href="#files">الملفات المحمية</a>
           <a href="#content">محتوى الدروس</a>
           <a href="#courses">الدورات <span class="count" id="nav-c"></span></a>
           <a href="#books">مكتبة الكتب <span class="count" id="nav-b"></span></a>
         </nav>
+
+        <!-- ================= الإحصائيات ================= -->
+        <div class="section-head admin-sec" id="stats">
+          <h2>إحصائيات الموقع</h2>
+          <p class="lede">عدد الزوار (حتى بدون تسجيل دخول) والأعضاء المسجَّلين وتطوّرهم يوماً بيوم. لا تُحفظ أي بيانات شخصية: كل زائر يُعرَف برقم عشوائي في متصفحه فقط.</p>
+        </div>
+        <div class="stats-bar">
+          <div class="seg" id="st-range" role="radiogroup" aria-label="الفترة">
+            <label><input type="radio" name="st-range" value="7"> 7 أيام</label>
+            <label><input type="radio" name="st-range" value="30" checked> 30 يوماً</label>
+            <label><input type="radio" name="st-range" value="90"> 3 أشهر</label>
+            <label><input type="radio" name="st-range" value="365"> سنة</label>
+          </div>
+          <button class="btn small quiet" type="button" id="st-refresh">تحديث</button>
+          <label class="st-self"><input type="checkbox" id="st-notrack"> لا تحتسب زياراتي من هذا المتصفح</label>
+        </div>
+        <p class="form-msg" id="st-msg" role="alert"></p>
+        <div class="kpis" id="st-kpis" aria-live="polite"></div>
+        <div class="charts">
+          <figure class="chart-card">
+            <figcaption><h3>الزوار يومياً</h3><p class="small-note">عدد الأشخاص المختلفين الذين زاروا الموقع كل يوم (مرّر المؤشر على عمود لرؤية التفاصيل).</p></figcaption>
+            <div class="chart" id="st-chart-visitors"></div>
+          </figure>
+          <figure class="chart-card">
+            <figcaption><h3>الأعضاء المسجَّلون</h3><p class="small-note">إجمالي حسابات المتدرّبين مع مرور الوقت.</p></figcaption>
+            <div class="chart" id="st-chart-members"></div>
+          </figure>
+        </div>
+        <div class="stat-lists" id="st-lists"></div>
+        <details class="tr-box st-table-box">
+          <summary>عرض الأرقام اليومية كجدول</summary>
+          <div class="table-scroll"><table class="table admin-table st-daily">
+            <thead><tr><th>اليوم</th><th>الزوار</th><th>زوار جدد</th><th>المشاهدات</th><th>طلبات التسجيل</th><th>تحميل كتب</th><th>حسابات جديدة</th></tr></thead>
+            <tbody id="st-daily"></tbody>
+          </table></div>
+        </details>
 
         <!-- ================= المتدرّبون ================= -->
         <div class="section-head admin-sec" id="trainees"><h2>المتدرّبون <span class="count" id="t-count"></span></h2></div>
@@ -226,8 +263,9 @@
 <script defer src="assets/js/i18n.js?v=8ca8debb"></script>
 <script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
 <script defer src="assets/js/site.js?v=07e07d1e"></script>
-<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/auth.js?v=70028bf9"></script>
 <script defer src="assets/js/books-data.js?v=a238c788"></script>
-<script defer src="assets/js/page-admin.js?v=b0151822"></script>
+<script defer src="assets/js/admin-stats.js?v=d4662ead"></script>
+<script defer src="assets/js/page-admin.js?v=4053302e"></script>
 </body>
 </html>

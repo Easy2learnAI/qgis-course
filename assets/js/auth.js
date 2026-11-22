@@ -215,6 +215,12 @@
         : authed('/rest/v1/courses', { method: 'POST', json: row, headers: { Prefer: 'return=minimal' } })
       ).catch(function (e) { throw tableErr(e, 'courses'); });
     },
+    // إحصائيات الزوار والمسجَّلين (للأدمن فقط) — الدالة site_stats في _setup/supabase/stats.sql
+    stats: function (days, tz) {
+      return authed('/rest/v1/rpc/site_stats', { method: 'POST', json: { p_days: days, p_tz: tz || 'UTC' } })
+        .catch(function (e) { throw tableErr(e, 'stats'); });
+    },
+
     deleteCourse: function (id) {
       return authed('/rest/v1/courses?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
         .catch(function (e) { throw tableErr(e, 'courses'); });
@@ -224,8 +230,9 @@
   // رسالة واضحة إذا لم يُنشأ الجدول أو المخزن بعد في Supabase
   function tableErr(e, what) {
     var b = e.body || {}, m = String(b.message || b.error || '');
-    var missing = e.status === 404 || b.code === '42P01' || b.code === 'PGRST205' || /not find|does not exist|not found/i.test(m);
-    if (missing) e.message = tr(what === 'courses' ? 'err_courses_table' : what === 'covers' ? 'err_covers_bucket' : 'err_books_table');
+    var missing = e.status === 404 || b.code === '42P01' || b.code === 'PGRST205' || b.code === 'PGRST202' || /not find|does not exist|not found/i.test(m);
+    if (missing) e.message = what === 'stats' ? 'الإحصائيات غير مفعَّلة بعد: شغّل الملف _setup/supabase/stats.sql مرة واحدة في SQL Editor.'
+      : tr(what === 'courses' ? 'err_courses_table' : what === 'covers' ? 'err_covers_bucket' : 'err_books_table');
     return e;
   }
 
