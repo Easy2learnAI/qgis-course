@@ -312,7 +312,7 @@
     $('b-preview').innerHTML = '<article class="book-card">' + html + '<div class="book-info"><h3 class="book-title">' + txt(b.title) + '</h3>' +
       (b.author ? '<p class="book-author">' + txt(b.author) + '</p>' : '') + (b.description ? '<p class="book-desc">' + txt(b.description) + '</p>' : '') +
       (meta ? '<div class="book-meta-bottom">' + meta + '</div>' : '') +
-      '<div class="book-action"><span class="btn small book-dl-btn">تحميل عبر Google Drive 📥</span></div></div></article>';
+      '<div class="book-action"><span class="btn small book-dl-btn">تحميل 📥</span></div></div></article>';
     var d = val('b-drive'), t = $('b-drive-test');
     t.hidden = !okUrl(d); if (okUrl(d)) t.href = normDrive(d);
   }
