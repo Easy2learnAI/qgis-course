@@ -17,15 +17,16 @@
       expires_at: d.expires_at || (Math.floor(Date.now() / 1000) + (d.expires_in || 3600)), user: d.user || null };
   }
 
+  function tr(k, fb) { return window.I18N ? window.I18N.t(k, fb) : fb; }
   function errText(status, body) {
     var m = body && (body.error_description || body.msg || body.message || body.error) || '';
-    if (/invalid login credentials/i.test(m)) return 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
-    if (/banned/i.test(m)) return 'هذا الحساب موقوف. تواصل مع المدرّب.';
-    if (/email not confirmed/i.test(m)) return 'الحساب غير مفعَّل بعد. تواصل مع المدرّب.';
-    if (/password should be|weak/i.test(m)) return 'كلمة المرور ضعيفة: استعمل 8 أحرف على الأقل.';
-    if (/already been registered|already registered|already exists/i.test(m)) return 'هذا البريد مسجَّل من قبل.';
-    if (status === 0) return 'تعذّر الاتصال بالخادم. تحقّق من اتصالك بالإنترنت ثم أعد المحاولة.';
-    return m || ('خطأ غير متوقَّع (' + status + ').');
+    if (/invalid login credentials/i.test(m)) return tr('err_login', 'البريد الإلكتروني أو كلمة المرور غير صحيحة.');
+    if (/banned/i.test(m)) return tr('err_banned', 'هذا الحساب موقوف. تواصل مع المدرّب.');
+    if (/email not confirmed/i.test(m)) return tr('err_unconfirmed', 'الحساب غير مفعَّل بعد. تواصل مع المدرّب.');
+    if (/password should be|weak/i.test(m)) return tr('err_weak', 'كلمة المرور ضعيفة: استعمل 8 أحرف على الأقل.');
+    if (/already been registered|already registered|already exists/i.test(m)) return tr('err_exists', 'هذا البريد مسجَّل من قبل.');
+    if (status === 0) return tr('err_network', 'تعذّر الاتصال بالخادم. تحقّق من اتصالك بالإنترنت ثم أعد المحاولة.');
+    return m || (tr('err_unexpected', 'خطأ غير متوقَّع') + ' (' + status + ').');
   }
 
   function req(path, opts) {
@@ -58,7 +59,7 @@
 
   function authed(path, opts) {
     return session().then(function (s) {
-      if (!s) { var e = new Error('انتهت الجلسة. سجّل الدخول من جديد.'); e.status = 401; throw e; }
+      if (!s) { var e = new Error(tr('err_session', 'انتهت الجلسة. سجّل الدخول من جديد.')); e.status = 401; throw e; }
       opts = opts || {}; opts.headers = opts.headers || {};
       opts.headers.Authorization = 'Bearer ' + s.access_token;
       return req(path, opts);
@@ -67,6 +68,29 @@
 
   function enc(p) { return p.split('/').map(encodeURIComponent).join('/'); }
 
+  // ذاكرة مؤقتة قصيرة لكل جلسة: تمنع إعادة طلب الملف الشخصي والمحتوى عند كل تنقّل بين الصفحات
+  var CK = 'delta_cache:';
+  function cget(k, maxAge) {
+    try { var v = JSON.parse(sessionStorage.getItem(CK + k)); if (v && Date.now() - v.t < maxAge) return v.d; } catch (e) {}
+    return undefined;
+  }
+  function cset(k, d) { try { sessionStorage.setItem(CK + k, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} }
+  function cclear() {
+    try { Object.keys(sessionStorage).forEach(function (k) { if (k.indexOf(CK) === 0) sessionStorage.removeItem(k); }); } catch (e) {}
+  }
+  var inflight = {};
+  function once(key, maxAge, fn) {
+    var hit = cget(key, maxAge);
+    if (hit !== undefined) return Promise.resolve(hit);
+    if (!inflight[key]) {
+      inflight[key] = fn().then(function (d) { cset(key, d); delete inflight[key]; return d; },
+                                function (e) { delete inflight[key]; throw e; });
+    }
+    return inflight[key];
+  }
+  var BOOK_COLS = 'id,title,author,category,category_name,pages,year,description,cover_url,drive_url,active,created_at';
+  var COVERS = 'book-covers';   // مخزن عام لصور أغلفة الكتب
+
   window.SB = {
     configured: configured,
     bucket: BUCKET,
@@ -74,10 +98,10 @@
 
     signIn: function (email, password) {
       return req('/auth/v1/token?grant_type=password', { method: 'POST', json: { email: email, password: password } })
-        .then(function (d) { var s = fromToken(d); save(s); return s; });
+        .then(function (d) { var s = fromToken(d); cclear(); save(s); return s; });
     },
     signOut: function () {
-      var s = load(); save(null);
+      var s = load(); save(null); cclear();
       if (s) req('/auth/v1/logout', { method: 'POST', headers: { Authorization: 'Bearer ' + s.access_token } }).catch(function () {});
       return Promise.resolve();
     },
@@ -86,8 +110,10 @@
     profile: function () {
       return session().then(function (s) {
         if (!s || !s.user) return null;
-        return authed('/rest/v1/profiles?select=id,email,full_name,role,active&id=eq.' + s.user.id)
-          .then(function (rows) { return rows && rows[0] || null; });
+        return once('profile:' + s.user.id, 5 * 60000, function () {
+          return authed('/rest/v1/profiles?select=id,email,full_name,role,active&id=eq.' + s.user.id)
+            .then(function (rows) { return rows && rows[0] || null; });
+        });
       });
     },
 
@@ -123,12 +149,15 @@
       if (!configured()) return Promise.resolve(null);
       return session().then(function (s) {
         if (!s) return null;
-        return authed('/storage/v1/object/authenticated/' + BUCKET + '/' + enc(window.SB.CONTENT_PATH), { headers: { 'cache-control': 'no-cache' } })
-          .then(function (d) { return typeof d === 'string' ? JSON.parse(d) : d; },
-                function (e) { if (e.status === 400 || e.status === 401 || e.status === 403 || e.status === 404) return null; throw e; });
+        return once('content:' + (s.user && s.user.id), 10 * 60000, function () {
+          return authed('/storage/v1/object/authenticated/' + BUCKET + '/' + enc(window.SB.CONTENT_PATH), { headers: { 'cache-control': 'no-cache' } })
+            .then(function (d) { return typeof d === 'string' ? JSON.parse(d) : d; },
+                  function (e) { if (e.status === 400 || e.status === 401 || e.status === 403 || e.status === 404) return null; throw e; });
+        });
       });
     },
     uploadContent: function (file) {
+      cclear();
       return authed('/storage/v1/object/' + BUCKET + '/' + enc(window.SB.CONTENT_PATH), { method: 'POST', body: file,
         headers: { 'x-upsert': 'true', 'Content-Type': 'application/json', 'cache-control': '60' } });
     },
@@ -137,21 +166,67 @@
     admin: function (action, data) {
       var body = data || {}; body.action = action;
       return authed('/functions/v1/admin-users', { method: 'POST', json: body });
+    },
+
+    // مكتبة الكتب: القائمة مع روابط التحميل — متاحة للجميع
+    getBooks: function () {
+      if (!configured()) return Promise.resolve([]);
+      var path = '/rest/v1/books?select=' + BOOK_COLS + '&order=created_at.desc';
+      return session().then(function (s) { return s ? authed(path) : req(path); });
+    },
+    saveBook: function (book) {
+      cclear();
+      return authed('/rest/v1/books', { method: 'POST', json: book, headers: { Prefer: 'return=minimal' } })
+        .catch(function (e) { throw tableErr(e, 'books'); });
+    },
+    updateBook: function (id, patch) {
+      cclear();
+      return authed('/rest/v1/books?id=eq.' + encodeURIComponent(id), { method: 'PATCH', json: patch, headers: { Prefer: 'return=minimal' } })
+        .catch(function (e) { throw tableErr(e, 'books'); });
+    },
+    deleteBook: function (id) {
+      cclear();
+      return authed('/rest/v1/books?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
+        .catch(function (e) { throw tableErr(e, 'books'); });
+    },
+    // صورة الغلاف: تُرفع إلى المخزن العام book-covers وتُرجع رابطها الدائم
+    uploadCover: function (path, blob) {
+      return authed('/storage/v1/object/' + COVERS + '/' + enc(path), { method: 'POST', body: blob,
+        headers: { 'x-upsert': 'true', 'Content-Type': blob.type || 'image/jpeg', 'cache-control': '31536000' } })
+        .then(function () { return URL_ + '/storage/v1/object/public/' + COVERS + '/' + enc(path); })
+        .catch(function (e) { throw tableErr(e, 'covers'); });
+    },
+    deleteCover: function (url) {
+      var pre = URL_ + '/storage/v1/object/public/' + COVERS + '/';
+      if (!url || url.indexOf(pre) !== 0) return Promise.resolve();
+      var path = decodeURIComponent(url.slice(pre.length).split('?')[0]);
+      return authed('/storage/v1/object/' + COVERS, { method: 'DELETE', json: { prefixes: [path] } }).catch(function () {});
+    },
+
+    // الدورات المضافة من لوحة الإدارة (دورة QGIS الأولى مكتوبة في courses-data.js)
+    getCourses: function () {
+      if (!configured()) return Promise.resolve([]);
+      var path = '/rest/v1/courses?select=*&order=sort_order.asc,created_at.asc';
+      return session().then(function (s) { return s ? authed(path) : req(path); });
+    },
+    saveCourse: function (row, id) {
+      return (id
+        ? authed('/rest/v1/courses?id=eq.' + encodeURIComponent(id), { method: 'PATCH', json: row, headers: { Prefer: 'return=minimal' } })
+        : authed('/rest/v1/courses', { method: 'POST', json: row, headers: { Prefer: 'return=minimal' } })
+      ).catch(function (e) { throw tableErr(e, 'courses'); });
+    },
+    deleteCourse: function (id) {
+      return authed('/rest/v1/courses?id=eq.' + encodeURIComponent(id), { method: 'DELETE', headers: { Prefer: 'return=minimal' } })
+        .catch(function (e) { throw tableErr(e, 'courses'); });
     }
   };
 
-  // أدوات صغيرة للعرض
-  window.fmtSize = function (n) {
-    if (!n && n !== 0) return '';
-    if (n < 1024) return n + ' B';
-    if (n < 1048576) return Math.round(n / 1024) + ' KB';
-    return (n / 1048576).toFixed(1) + ' MB';
-  };
-  window.esc = function (s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
-  };
-  window.fmtDate = function (d) {
-    if (!d) return '—';
-    try { return new Date(d).toLocaleDateString('ar-DZ-u-nu-latn', { year: 'numeric', month: 'short', day: 'numeric' }); } catch (e) { return d.slice(0, 10); }
-  };
+  // رسالة واضحة إذا لم يُنشأ الجدول أو المخزن بعد في Supabase
+  function tableErr(e, what) {
+    var b = e.body || {}, m = String(b.message || b.error || '');
+    var missing = e.status === 404 || b.code === '42P01' || b.code === 'PGRST205' || /not find|does not exist|not found/i.test(m);
+    if (missing) e.message = tr(what === 'courses' ? 'err_courses_table' : what === 'covers' ? 'err_covers_bucket' : 'err_books_table');
+    return e;
+  }
+
 })();

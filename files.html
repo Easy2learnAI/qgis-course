@@ -3,20 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ملفات الدورة — دورة QGIS</title>
+<title>ملفاتي وحسابي — Delta Conception</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#1c2b39">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
 </head>
 <body data-page="files">
 <main id="main">
   <header class="page-head">
     <div class="wrap">
-      <p class="crumbs"><a href="index.html">الرئيسية</a> / ملفات الدورة</p>
-      <h1>ملفات الدورة</h1>
-      <p class="lede">الدليل المفصّل ومواد التمارين متاحة للمتدرّبين المسجَّلين فقط. ادخل بالحساب الذي أرسله لك المدرّب.</p>
+      <p class="crumbs"><a href="index.html" data-i18n="nav_home">الرئيسية</a> / <span data-i18n="nav_files">ملفاتي وحسابي</span></p>
+      <h1 data-i18n="files_head_title">ملفات الدورة وحسابي</h1>
+      <p class="lede" data-i18n="files_head_lede">الدليل المفصّل ومواد التمارين متاحة للمتدرّبين المسجَّلين فقط. ادخل بالحساب الذي أرسله لك المدرّب.</p>
     </div>
   </header>
 
@@ -24,146 +29,69 @@
     <div class="wrap">
 
       <div class="notice" id="off" hidden>
-        <h3>ملفات الدورة غير متاحة بعد</h3>
-        <p>لم يُفعَّل نظام الحسابات على الموقع حتى الآن. للحصول على الدليل تواصل مع المدرّب.</p>
+        <h3 data-i18n="files_off_h">ملفات الدورة غير متاحة بعد</h3>
+        <p data-i18n="files_off_p">لم يُفعَّل نظام الحسابات على الموقع حتى الآن. للحصول على الدليل تواصل مع المدرّب.</p>
       </div>
 
       <div class="auth-box" id="login" hidden>
-        <h2>تسجيل الدخول</h2>
+        <h2 data-i18n="files_login_h2">تسجيل الدخول</h2>
         <form id="login-form" novalidate>
-          <div class="field"><label for="l-email">البريد الإلكتروني</label><input class="input ltr" id="l-email" type="email" autocomplete="username" required style="text-align:right"></div>
-          <div class="field"><label for="l-pw">كلمة المرور</label><input class="input ltr" id="l-pw" type="password" autocomplete="current-password" required style="text-align:right"></div>
+          <div class="field"><label for="l-email" data-i18n="files_login_email">البريد الإلكتروني</label><input class="input ltr" id="l-email" type="email" autocomplete="username" required></div>
+          <div class="field"><label for="l-pw" data-i18n="files_login_pw">كلمة المرور</label><input class="input ltr" id="l-pw" type="password" autocomplete="current-password" required></div>
           <p class="form-msg" id="login-msg" role="alert"></p>
-          <button class="btn" type="submit">دخول</button>
+          <button class="btn" type="submit" data-i18n="files_login_btn">دخول</button>
         </form>
-        <p class="small-note">ليس لديك حساب؟ الحسابات يُنشئها المدرّب بعد قبول <a href="register.html">طلب التسجيل</a>. نسيت كلمة المرور؟ <a id="forgot" href="#">راسل المدرّب</a> ليعطيك كلمة مرور جديدة.</p>
+        <p class="small-note"><span data-i18n="files_no_account">ليس لديك حساب؟ الحسابات يُنشئها المدرّب بعد قبول طلب التسجيل.</span> <a href="register.html" data-i18n="files_register_link">طلب التسجيل</a> · <a id="forgot" href="#" data-i18n="files_forgot">نسيت كلمة المرور؟ راسل المدرّب</a></p>
       </div>
 
       <div id="area" hidden>
         <div class="account-bar">
-          <div>مرحباً <b id="who"></b> <span class="ltr small-note" id="who-mail"></span></div>
+          <div><span data-i18n="files_hello">مرحباً</span> <b id="who"></b> <span class="ltr small-note" id="who-mail"></span></div>
           <div class="account-actions">
-            <a class="btn small" id="to-admin" href="admin.html" hidden>لوحة الإدارة</a>
-            <button class="btn small quiet" type="button" id="show-pw">تغيير كلمة المرور</button>
-            <button class="btn small quiet" type="button" id="logout">خروج</button>
+            <a class="btn small" id="to-admin" href="admin.html" hidden data-i18n="files_admin_btn">لوحة الإدارة</a>
+            <button class="btn small quiet" type="button" id="show-pw" data-i18n="files_change_pw">تغيير كلمة المرور</button>
+            <button class="btn small quiet" type="button" id="logout" data-i18n="files_logout">خروج</button>
           </div>
         </div>
 
         <div class="auth-box" id="pw-box" hidden>
-          <h2>تغيير كلمة المرور</h2>
+          <h2 data-i18n="files_change_pw">تغيير كلمة المرور</h2>
           <form id="pw-form" novalidate>
-            <div class="field"><label for="pw1">كلمة المرور الجديدة <span class="hint">(8 أحرف على الأقل)</span></label><input class="input ltr" id="pw1" type="password" autocomplete="new-password" minlength="8" required style="text-align:right"></div>
-            <div class="field"><label for="pw2">أعد كتابتها</label><input class="input ltr" id="pw2" type="password" autocomplete="new-password" required style="text-align:right"></div>
+            <div class="field"><label for="pw1"><span data-i18n="files_new_pw">كلمة المرور الجديدة</span> <span class="hint" data-i18n="files_pw_hint">(8 أحرف على الأقل)</span></label><input class="input ltr" id="pw1" type="password" autocomplete="new-password" minlength="8" required></div>
+            <div class="field"><label for="pw2" data-i18n="files_pw_again">أعد كتابتها</label><input class="input ltr" id="pw2" type="password" autocomplete="new-password" required></div>
             <p class="form-msg" id="pw-msg" role="alert"></p>
-            <button class="btn" type="submit">حفظ كلمة المرور</button>
+            <button class="btn" type="submit" data-i18n="files_pw_save">حفظ كلمة المرور</button>
           </form>
         </div>
 
         <div class="notice" id="inactive" hidden>
-          <h3>حسابك موقوف حالياً</h3>
-          <p>لا يمكنك تحميل الملفات الآن. تواصل مع المدرّب لإعادة تفعيل الحساب.</p>
+          <h3 data-i18n="files_inactive_h">حسابك موقوف حالياً</h3>
+          <p data-i18n="files_inactive_p">لا يمكنك تحميل الملفات الآن. تواصل مع المدرّب لإعادة تفعيل الحساب.</p>
         </div>
 
         <div id="lists">
-          <div class="section-head" style="margin-top:8px"><h2>الدليل المفصّل</h2></div>
+          <div class="section-head" style="margin-top:8px"><h2 data-i18n="files_guide_h2">الدليل المفصّل</h2></div>
           <ul class="file-list" id="list-guide"></ul>
-          <p class="empty" id="empty-guide" hidden>لا يوجد ملف في هذا القسم بعد.</p>
+          <p class="empty" id="empty-guide" hidden data-i18n="files_empty_guide">لا يوجد ملف في هذا القسم بعد.</p>
 
-          <div class="section-head" style="margin-top:40px"><h2>مواد التمارين</h2><p class="lede">البيانات والخرائط والملفات التي نعمل عليها في الحصص.</p></div>
+          <div class="section-head" style="margin-top:40px"><h2 data-i18n="files_materials_h2">مواد التمارين</h2><p class="lede" data-i18n="files_materials_lede">البيانات والخرائط والملفات التي نعمل عليها في الحصص.</p></div>
           <ul class="file-list" id="list-materials"></ul>
-          <p class="empty" id="empty-materials" hidden>لا توجد مواد بعد. ستُضاف قبل الحصص.</p>
+          <p class="empty" id="empty-materials" hidden data-i18n="files_empty_materials">لا توجد مواد بعد. ستُضاف قبل الحصص.</p>
           <p class="form-msg" id="files-msg" role="alert"></p>
+
+          <div class="section-head" style="margin-top:40px"><h2 data-i18n="nav_books">مكتبة الكتب</h2><p class="lede" data-i18n="files_books_lede">كتب ومراجع رقمية متاحة للتحميل مجاناً في صفحة المكتبة.</p></div>
+          <p><a class="btn quiet" href="books.html" data-i18n="home_books_btn">الدخول إلى مكتبة الكتب ↗</a></p>
         </div>
       </div>
 
     </div>
   </section>
 </main>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/site.js"></script>
-<script src="assets/js/auth.js"></script>
-<script>
-(function () {
-  var $ = function (id) { return document.getElementById(id); };
-  var S = window.SITE || {};
-  if (S.email) $('forgot').href = 'mailto:' + S.email + '?subject=' + encodeURIComponent('نسيت كلمة المرور — دورة QGIS');
-
-  if (!SB.configured()) { $('off').hidden = false; return; }
-
-  // بعد الدخول من صفحة وحدة أو الموارد نعود إليها (صفحات الموقع فقط)
-  var next = new URLSearchParams(location.search).get('next') || '';
-  if (!/^(lesson|resources|program|index)\.html(\?u=\d+)?(#[a-z]+)?$/.test(next)) next = '';
-
-  function showLogin() { $('login').hidden = false; $('area').hidden = true; }
-
-  function renderList(el, empty, rows) {
-    empty.hidden = rows.length > 0;
-    el.innerHTML = rows.map(function (f) {
-      var ext = (f.path.split('.').pop() || '').toUpperCase();
-      return '<li><div><b>' + esc(f.title) + '</b><span class="meta"><span class="ltr">' + esc(ext) + '</span> · <span class="ltr">' + fmtSize(f.size) + '</span></span></div>' +
-        '<button class="btn small" type="button" data-path="' + esc(f.path) + '">تحميل</button></li>';
-    }).join('');
-  }
-
-  function loadFiles() {
-    $('files-msg').textContent = '';
-    return SB.files().then(function (rows) {
-      rows = rows || [];
-      renderList($('list-guide'), $('empty-guide'), rows.filter(function (r) { return r.folder === 'guide'; }));
-      renderList($('list-materials'), $('empty-materials'), rows.filter(function (r) { return r.folder !== 'guide'; }));
-    }, function (e) { $('files-msg').textContent = e.message; });
-  }
-
-  function enter() {
-    return SB.profile().then(function (p) {
-      if (!p) { SB.signOut(); showLogin(); return; }
-      $('login').hidden = true; $('area').hidden = false;
-      $('who').textContent = p.full_name || p.email;
-      $('who-mail').textContent = p.full_name ? p.email : '';
-      $('to-admin').hidden = p.role !== 'admin';
-      $('inactive').hidden = p.active;
-      $('lists').hidden = !p.active;
-      if (p.active && next) { location.href = next; return; }
-      if (p.active) return loadFiles();
-    }, function () { SB.signOut(); showLogin(); });
-  }
-
-  $('login-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var m = $('login-msg'), b = this.querySelector('button');
-    var email = $('l-email').value.trim(), pw = $('l-pw').value;
-    if (!email || !pw) { m.textContent = 'اكتب البريد الإلكتروني وكلمة المرور.'; return; }
-    m.textContent = ''; b.disabled = true; b.textContent = 'جارٍ الدخول…';
-    SB.signIn(email, pw).then(function () { $('l-pw').value = ''; return enter(); })
-      .catch(function (err) { m.textContent = err.message; })
-      .then(function () { b.disabled = false; b.textContent = 'دخول'; });
-  });
-
-  $('logout').addEventListener('click', function () { SB.signOut().then(showLogin); });
-  $('show-pw').addEventListener('click', function () { $('pw-box').hidden = !$('pw-box').hidden; if (!$('pw-box').hidden) $('pw1').focus(); });
-
-  $('pw-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var m = $('pw-msg'), a = $('pw1').value, c = $('pw2').value;
-    m.classList.remove('ok');
-    if (a.length < 8) { m.textContent = 'كلمة المرور قصيرة: 8 أحرف على الأقل.'; return; }
-    if (a !== c) { m.textContent = 'الكلمتان غير متطابقتين.'; return; }
-    SB.changePassword(a).then(function () {
-      m.classList.add('ok'); m.textContent = 'تم حفظ كلمة المرور الجديدة.'; $('pw1').value = $('pw2').value = '';
-    }, function (err) { m.textContent = err.message; });
-  });
-
-  document.addEventListener('click', function (e) {
-    var b = e.target.closest('button[data-path]'); if (!b) return;
-    var t = b.textContent; b.disabled = true; b.textContent = 'جارٍ التحضير…';
-    SB.link(b.getAttribute('data-path')).then(function (u) { window.location.href = u; },
-      function (err) { $('files-msg').textContent = err.message; })
-      .then(function () { setTimeout(function () { b.disabled = false; b.textContent = t; }, 1500); });
-  });
-
-  SB.session().then(function (s) { if (s) enter(); else showLogin(); });
-})();
-</script>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/page-files.js?v=08c2f884"></script>
 </body>
 </html>

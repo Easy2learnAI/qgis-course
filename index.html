@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>دورة نظم المعلومات الجغرافية باستخدام QGIS و Google Earth</title>
-<meta name="description" content="دورة تأسيسية تطبيقية في QGIS و Google Earth: الإرجاع الجغرافي، البيانات الاتجاهية والشبكية، وتصميم الخرائط — ببيانات من بجاية والبليدة والوادي.">
+<title>Delta Conception — أكاديمية نظم المعلومات الجغرافية والمكتبة الرقمية</title>
+<meta name="description" content="Delta Conception — دورات تطبيقية في نظم المعلومات الجغرافية (QGIS و Google Earth) على بيانات حقيقية من الجزائر، ومكتبة رقمية للمراجع.">
+<meta name="theme-color" content="#1c2b39">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
 </head>
 <body data-page="home">
 <main id="main">
@@ -17,26 +21,27 @@
   <section class="hero">
     <div class="wrap">
       <div>
-        <div class="meta"><span><i></i>دورة تأسيسية في سبع وحدات</span></div>
-        <h1>من خريطة ورقية ممسوحة إلى مشروع <span class="ltr">SIG</span> متكامل</h1>
-        <p class="lede">تعلّم نظم المعلومات الجغرافية باستخدام <span class="ltr">QGIS</span> و <span class="ltr">Google Earth</span>. في كل وحدة شرح نظري قصير يتبعه تمرين تطبيقي على بيانات حقيقية، حتى تُخرج خريطتك الأولى جاهزة للطباعة.</p>
+        <div class="meta"><span><i></i><span data-i18n="hero_badge">أكاديمية <span class="ltr">Delta Conception</span> والمكتبة الرقمية</span></span></div>
+        <h1 data-i18n="hero_title">من خريطة ورقية ممسوحة إلى مشروع <span class="ltr">SIG</span> متكامل</h1>
+        <p class="lede" data-i18n="hero_desc">منصة تدريبية في نظم المعلومات الجغرافية بـ <span class="ltr">QGIS</span> و <span class="ltr">Google Earth</span> على بيانات حقيقية من الجزائر، مع مكتبة رقمية للكتب والمراجع عبر <span class="ltr">Google Drive</span>.</p>
         <div class="actions">
-          <a class="btn" href="register.html">سجّل في الدورة</a>
-          <a class="textlink" href="program.html">تصفّح البرنامج</a>
+          <a class="btn" href="courses.html" data-i18n="hero_btn_courses">استكشف جميع الدورات</a>
+          <a class="btn quiet" href="books.html" data-i18n="hero_btn_books">مكتبة الكتب الرقمية</a>
+          <a class="textlink" href="#qgis-course" data-i18n="hero_btn_qgis">دورة <span class="ltr">QGIS</span> المتاحة الآن ↓</a>
         </div>
       </div>
 
       <figure class="sheet" id="sheet">
         <div class="sheet-frame"></div>
         <div class="layers" role="group" aria-labelledby="layers-t">
-          <h3 id="layers-t">الطبقات <button type="button" data-replay title="إعادة عرض الإرجاع الجغرافي">إعادة</button></h3>
+          <h3 id="layers-t"><span data-i18n="layer_title">الطبقات</span> <button type="button" data-replay title="إعادة عرض الإرجاع الجغرافي" data-i18n="layer_replay" data-i18n-attr="title:layer_replay_title">إعادة</button></h3>
           <ul>
-            <li><label><input type="checkbox" value="peaks" checked><svg class="sw" viewBox="0 0 18 14"><path d="M3 12 L9 2 L15 12Z" fill="#1c2b39"/></svg>القمم</label></li>
-            <li><label><input type="checkbox" value="rivers" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 10 C6 2 11 13 17 4" stroke="#2a6fb0" stroke-width="2" fill="none"/></svg>الأنهار</label></li>
-            <li><label><input type="checkbox" value="sebkha" checked><svg class="sw" viewBox="0 0 18 14"><rect x="1" y="2" width="16" height="10" fill="#dae8f4" stroke="#2a6fb0"/></svg>السبخة</label></li>
-            <li><label><input type="checkbox" value="contours" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 11 C6 6 11 12 17 6 M1 6 C6 2 11 7 17 2" stroke="#a0612f" fill="none"/></svg>الكنتور</label></li>
-            <li><label><input type="checkbox" value="hillshade" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="hs"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#4b5a68"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#hs)"/></svg>التظليل</label></li>
-            <li><label><input type="checkbox" value="dem" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="dm"><stop offset="0" stop-color="#dfe9cf"/><stop offset=".6" stop-color="#d9b98a"/><stop offset="1" stop-color="#ad8a74"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#dm)"/></svg>الارتفاعات</label></li>
+            <li><label><input type="checkbox" value="peaks" checked><svg class="sw" viewBox="0 0 18 14"><path d="M3 12 L9 2 L15 12Z" fill="#1c2b39"/></svg><span data-i18n="layer_peaks">القمم</span></label></li>
+            <li><label><input type="checkbox" value="rivers" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 10 C6 2 11 13 17 4" stroke="#2a6fb0" stroke-width="2" fill="none"/></svg><span data-i18n="layer_rivers">الأنهار</span></label></li>
+            <li><label><input type="checkbox" value="sebkha" checked><svg class="sw" viewBox="0 0 18 14"><rect x="1" y="2" width="16" height="10" fill="#dae8f4" stroke="#2a6fb0"/></svg><span data-i18n="layer_sebkha">السبخة</span></label></li>
+            <li><label><input type="checkbox" value="contours" checked><svg class="sw" viewBox="0 0 18 14"><path d="M1 11 C6 6 11 12 17 6 M1 6 C6 2 11 7 17 2" stroke="#a0612f" fill="none"/></svg><span data-i18n="layer_contours">الكنتور</span></label></li>
+            <li><label><input type="checkbox" value="hillshade" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="hs"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#4b5a68"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#hs)"/></svg><span data-i18n="layer_hillshade">التظليل</span></label></li>
+            <li><label><input type="checkbox" value="dem" checked><svg class="sw" viewBox="0 0 18 14"><defs><linearGradient id="dm"><stop offset="0" stop-color="#dfe9cf"/><stop offset=".6" stop-color="#d9b98a"/><stop offset="1" stop-color="#ad8a74"/></linearGradient></defs><rect x="1" y="2" width="16" height="10" fill="url(#dm)"/></svg><span data-i18n="layer_dem">الارتفاعات</span></label></li>
           </ul>
         </div>
         <figcaption class="statusbar"><span class="msg" aria-live="polite"></span><span class="coords">EPSG:4326</span></figcaption>
@@ -44,22 +49,67 @@
     </div>
   </section>
 
-  <section class="band alt" id="objectives">
+  <!-- ================= مسارات ودورات الأكاديمية ================= -->
+  <section class="band alt" id="all-courses">
     <div class="wrap">
       <div class="section-head">
-        <h2>ماذا ستتعلّم</h2>
-        <p class="lede">سبعة أهداف عامة تغطي دورة حياة مشروع نظم المعلومات الجغرافية: من تثبيت البرنامج وإدارة الإحداثيات، إلى التحليل المكاني وإخراج الخريطة.</p>
+        <h2 data-i18n="home_courses_h2">دورات ومسارات الأكاديمية</h2>
+        <p class="lede" data-i18n="home_courses_lede">دورات تطبيقية على بيانات ومشاريع حقيقية. تُضاف دورات جديدة هنا عند افتتاحها.</p>
+      </div>
+
+      <div class="courses-grid" id="home-courses-grid"></div>
+
+      <div style="margin-top:36px;text-align:center">
+        <a class="btn" href="courses.html" data-i18n="home_courses_btn">عرض تفاصيل جميع الدورات ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= قسم أحدث الكتب والمراجع ================= -->
+  <section class="band" id="featured-books" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="home_books_h2">مكتبة الكتب والمراجع الرقمية</h2>
+        <p class="lede" data-i18n="home_books_lede">كتب تخصصية ومراجع علمية للتحميل المجاني عبر <span class="ltr">Google Drive</span>.</p>
+      </div>
+
+      <div class="books-grid" id="home-books-grid">
+        <!-- تُملأ ديناميكياً بواسطة assets/js/books-data.js -->
+      </div>
+
+      <div style="margin-top:36px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <p class="small-note" data-i18n="home_books_note">كل الكتب متاحة للتحميل مجاناً للجميع.</p>
+        <a class="btn quiet" href="books.html" data-i18n="home_books_btn">الدخول إلى مكتبة الكتب الكاملة ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= تفاصيل دورة QGIS التأسيسية ================= -->
+  <section class="band alt" id="qgis-course">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="qgis_section_h2">الدورة المتاحة الآن: نظم المعلومات الجغرافية بـ <span class="ltr">QGIS</span></h2>
+        <p class="lede" data-i18n="qgis_section_lede">دورة تأسيسية تطبيقية مبنية على سبع وحدات متتالية وخمسة تمارين على بيانات حقيقية من الجزائر.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="objectives">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-i18n="home_qgis_objectives_h2">ماذا ستتعلّم</h2>
+        <p class="lede" data-i18n="home_qgis_objectives_lede">سبعة أهداف عامة تغطي دورة حياة مشروع نظم المعلومات الجغرافية: من تثبيت البرنامج وإدارة الإحداثيات، إلى التحليل المكاني وإخراج الخريطة.</p>
       </div>
       <ul class="legend" id="legend"></ul>
-      <p class="legend-caption">في نهاية الدورة ستكون قادراً على هيكلة مشروع نظم معلومات جغرافية، وتحليل البيانات المكانية الأساسية، وإنتاج خرائط واضحة وفعّالة.</p>
+      <p class="legend-caption" data-i18n="home_qgis_objectives_caption">في نهاية الدورة ستكون قادراً على هيكلة مشروع نظم معلومات جغرافية، وتحليل البيانات المكانية الأساسية، وإنتاج خرائط واضحة وفعّالة.</p>
     </div>
   </section>
 
   <section class="band" id="units">
     <div class="wrap">
       <div class="section-head">
-        <h2>مسار الدورة</h2>
-        <p class="lede">سبع وحدات متتالية، كل منها مبنية على ما قبلها. ابدأ من الوحدة 0 وتقدّم بالترتيب.</p>
+        <h2 data-i18n="home_qgis_units_h2">مسار الدورة</h2>
+        <p class="lede" data-i18n="home_qgis_units_lede">سبع وحدات متتالية، كل منها مبنية على ما قبلها. ابدأ من الوحدة 0 وتقدّم بالترتيب.</p>
       </div>
       <ol class="traverse" id="traverse"></ol>
     </div>
@@ -68,14 +118,14 @@
   <section class="band ink">
     <div class="wrap">
       <div class="section-head">
-        <h2>كيف تسير كل وحدة</h2>
-        <p class="lede" style="color:#c4cdd5">نفس البنية في كل تمرين، حتى تعرف دائماً أين أنت وما الخطوة التالية.</p>
+        <h2 data-i18n="home_qgis_flow_h2">كيف تسير كل وحدة</h2>
+        <p class="lede" style="color:#c4cdd5" data-i18n="home_qgis_flow_lede">نفس البنية في كل تمرين، حتى تعرف دائماً أين أنت وما الخطوة التالية.</p>
       </div>
       <ol class="flow">
-        <li><h3>المفهوم</h3><p>مقدمة وجزء نظري قصير يشرح الفكرة قبل لمس البرنامج.</p></li>
-        <li><h3>الأهداف</h3><p>قائمة واضحة بما ستقدر على فعله في نهاية التمرين.</p></li>
-        <li><h3>التطبيق</h3><p>خطوات مرقّمة داخل <span class="ltr">QGIS</span> على بيانات من بجاية (خريطة أرشيفية) والبليدة (نموذج ارتفاع مفتوح) والوادي (آبار تدريبية).</p></li>
-        <li><h3>النتيجة</h3><p>طبقة أو خريطة جاهزة تحفظها وتستعملها في الوحدة التالية.</p></li>
+        <li><h3 data-i18n="flow_step1_h">المفهوم</h3><p data-i18n="flow_step1_p">مقدمة وجزء نظري قصير يشرح الفكرة قبل لمس البرنامج.</p></li>
+        <li><h3 data-i18n="flow_step2_h">الأهداف</h3><p data-i18n="flow_step2_p">قائمة واضحة بما ستقدر على فعله في نهاية التمرين.</p></li>
+        <li><h3 data-i18n="flow_step3_h">التطبيق</h3><p data-i18n="flow_step3_p">خطوات مرقّمة داخل <span class="ltr">QGIS</span> على بيانات من بجاية (خريطة أرشيفية) والبليدة (نموذج ارتفاع مفتوح) والوادي (آبار تدريبية).</p></li>
+        <li><h3 data-i18n="flow_step4_h">النتيجة</h3><p data-i18n="flow_step4_p">طبقة أو خريطة جاهزة تحفظها وتستعملها في الوحدة التالية.</p></li>
       </ol>
     </div>
   </section>
@@ -83,11 +133,11 @@
   <section class="band alt" id="areas">
     <div class="wrap">
       <div class="section-head">
-        <h2>مناطق الدراسة</h2>
-        <p class="lede">التمارين لا تعتمد على أمثلة افتراضية: ستعمل على خرائط وقياسات من الجزائر. اختر منطقة لعرضها على الخريطة.</p>
+        <h2 data-i18n="home_qgis_areas_h2">مناطق الدراسة</h2>
+        <p class="lede" data-i18n="home_qgis_areas_lede">التمارين لا تعتمد على أمثلة افتراضية: ستعمل على خرائط وقياسات من الجزائر. اختر منطقة لعرضها على الخريطة.</p>
       </div>
       <div class="areas">
-        <div id="areas-map" aria-label="خريطة مناطق الدراسة"></div>
+        <div id="areas-map" role="region" aria-label="خريطة مناطق الدراسة" data-i18n-attr="aria-label:areas_map_label"></div>
         <ul class="area-list" id="area-list"></ul>
       </div>
     </div>
@@ -96,22 +146,22 @@
   <section class="band">
     <div class="wrap split">
       <div>
-        <h2 style="margin-bottom:14px">لمن هذه الدورة</h2>
-        <p>للطلاب والمهنيين والباحثين، ولكل من يرغب في اكتساب أسس متينة في نظم المعلومات الجغرافية بأداة مفتوحة المصدر وقوية وواسعة الانتشار. تُستعمل هذه المهارات في الإدارة البيئية، تخطيط الأراضي، تحليل المخاطر، البنية التحتية، النقل والتخطيط العمراني.</p>
+        <h2 style="margin-bottom:14px" data-i18n="home_qgis_target_h2">لمن هذه الدورة</h2>
+        <p data-i18n="home_qgis_target_p">للطلاب والمهنيين والباحثين، ولكل من يرغب في اكتساب أسس متينة في نظم المعلومات الجغرافية بأداة مفتوحة المصدر وقوية وواسعة الانتشار. تُستعمل هذه المهارات في الإدارة البيئية، تخطيط الأراضي، تحليل المخاطر، البنية التحتية، النقل والتخطيط العمراني.</p>
       </div>
       <div>
-        <h2 style="margin-bottom:14px">البرامج المستعملة</h2>
-        <table class="table tools">
-          <thead><tr><th>البرنامج</th><th>الاستخدام في الدورة</th><th>السعر</th></tr></thead>
+        <h2 style="margin-bottom:14px" data-i18n="home_qgis_tools_h2">البرامج المستعملة</h2>
+        <div class="table-scroll"><table class="table tools">
+          <thead><tr><th data-i18n="th_software">البرنامج</th><th data-i18n="th_usage">الاستخدام في الدورة</th><th data-i18n="th_price">السعر / الترخيص</th></tr></thead>
           <tbody id="tools-body"></tbody>
-        </table>
+        </table></div>
       </div>
     </div>
   </section>
 
   <section class="band alt">
     <div class="wrap section-head" style="margin-bottom:0;align-items:start">
-      <h2>أسئلة شائعة</h2>
+      <h2 data-i18n="home_faq_h2">أسئلة شائعة</h2>
       <div class="faq" id="faq"></div>
     </div>
   </section>
@@ -119,19 +169,22 @@
   <section class="band ink">
     <div class="wrap cta">
       <div>
-        <h2>ابدأ بالوحدة الأولى</h2>
-        <p>سجّل الآن، ثبّت <span class="ltr">QGIS</span>، وافتح أول طبقة بيانات في الوحدة 1.</p>
+        <h2 data-i18n="home_cta_h2">ابدأ بالوحدة الأولى</h2>
+        <p data-i18n="home_cta_p">سجّل الآن، ثبّت <span class="ltr">QGIS</span>، وافتح أول طبقة بيانات في الوحدة 1.</p>
       </div>
-      <a class="btn" href="register.html">سجّل في الدورة</a>
+      <a class="btn" href="register.html" data-i18n="home_cta_btn">سجّل في الدورة</a>
     </div>
   </section>
 
 </main>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/site.js"></script>
-<script src="assets/data/terrain.js"></script>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="assets/js/home.js"></script>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/data.js?v=4d55547a"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/books-data.js?v=a238c788"></script>
+<script defer src="assets/data/terrain.js?v=fc9c409e"></script>
+<script defer src="assets/js/home.js?v=7a865717"></script>
 </body>
 </html>

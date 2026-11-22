@@ -15,8 +15,9 @@ const SEND_CONFIRMATION = false;
 
 const SHEET_NAME = 'التسجيلات';
 const TIME_ZONE  = 'Africa/Algiers';   // توقيت عرض التواريخ في الجدول
-const FIELDS  = ['date', 'name', 'email', 'phone', 'city', 'profile', 'level', 'message'];
-const HEADERS = ['التاريخ', 'الاسم', 'البريد الإلكتروني', 'الهاتف', 'الولاية / المدينة', 'الصفة', 'المستوى', 'الهدف من الدورة'];
+// «course» أُضيف في آخر الأعمدة حتى لا تتغيّر أعمدة الجدول الموجود
+const FIELDS  = ['date', 'name', 'email', 'phone', 'city', 'profile', 'level', 'message', 'course'];
+const HEADERS = ['التاريخ', 'الاسم', 'البريد الإلكتروني', 'الهاتف', 'الولاية / المدينة', 'الصفة', 'المستوى', 'الهدف من الدورة', 'الدورة المطلوبة'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -65,6 +66,9 @@ function getSheet() {
     sh.setFrozenRows(1);
     sh.setRightToLeft(true);
     sh.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+  } else if (sh.getLastColumn() < HEADERS.length) {
+    // جدول قديم بلا عمود «الدورة المطلوبة»: يُضاف العنوان الناقص في الصف الأول
+    sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]).setFontWeight('bold');
   }
   return sh;
 }

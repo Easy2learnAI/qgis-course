@@ -3,57 +3,63 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>البرنامج — دورة QGIS</title>
+<title>برنامج الدورة — Delta Conception</title>
+<meta name="description" content="برنامج دورة QGIS و Google Earth: سبع وحدات وخمسة تمارين تطبيقية على بيانات من بجاية والبليدة والوادي.">
+<meta name="theme-color" content="#1c2b39">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
 </head>
 <body data-page="program">
 <main id="main">
   <header class="page-head">
     <div class="wrap">
-      <p class="crumbs"><a href="index.html">الرئيسية</a> / البرنامج</p>
-      <h1>برنامج الدورة</h1>
-      <p class="lede">الهيكل العام للمقرر: سبع وحدات، لكل وحدة محور وتمرين تطبيقي.</p>
+      <p class="crumbs"><a href="index.html" data-i18n="nav_home">الرئيسية</a> / <span data-i18n="prog_title">برنامج الدورة</span></p>
+      <h1 data-i18n="prog_title">برنامج الدورة</h1>
+      <p class="lede" data-i18n="prog_lede">الهيكل العام للمقرر: سبع وحدات، لكل وحدة محور وتمرين تطبيقي.</p>
       <div class="lesson-intro">
-        <a class="btn small" href="lesson.html?u=0">ابدأ من الوحدة 0</a>
-        <a class="textlink" href="files.html">الدليل المفصّل (PDF) — للمتدرّبين</a>
-        <a class="textlink" href="assets/img/course-plan-ar.png" download>تحميل ملخص الخطة (صورة)</a>
+        <a class="btn small" href="lesson.html?u=0" data-i18n="prog_btn_start0">ابدأ من الوحدة 0</a>
+        <a class="textlink" href="files.html" data-i18n="prog_btn_guide">الدليل المفصّل (<span class="ltr">PDF</span>) — للمتدرّبين</a>
+        <a class="textlink" href="assets/img/course-plan-ar.png" download data-i18n="prog_btn_download_plan">تحميل ملخص الخطة (صورة)</a>
       </div>
     </div>
   </header>
 
   <section class="band">
     <div class="wrap">
-      <table class="table syllabus">
-        <thead><tr><th style="width:90px">الوحدة</th><th>المحور</th><th>التمرين التطبيقي</th><th style="width:120px"></th></tr></thead>
+      <div class="table-scroll"><table class="table syllabus">
+        <thead>
+          <tr>
+            <th style="width:100px" data-i18n="prog_th_unit">الوحدة</th>
+            <th data-i18n="prog_th_axis">المحور</th>
+            <th data-i18n="prog_th_exercise">التمرين التطبيقي</th>
+            <th style="width:140px"><span class="visually-hidden" data-i18n="prog_open_unit">فتح الوحدة</span></th>
+          </tr>
+        </thead>
         <tbody id="syllabus"></tbody>
-      </table>
+      </table></div>
     </div>
   </section>
 
   <section class="band ink">
     <div class="wrap cta">
       <div>
-        <h2>جاهز للوحدة الأولى؟</h2>
-        <p>سجّل في الدورة، ثم ثبّت <span class="ltr">QGIS</span> من صفحة الموارد.</p>
+        <h2 data-i18n="prog_cta_h2">جاهز للوحدة الأولى؟</h2>
+        <p data-i18n="prog_cta_p">سجّل في الدورة، ثم ثبّت <span class="ltr">QGIS</span> من صفحة الموارد.</p>
       </div>
-      <a class="btn" href="register.html">سجّل في الدورة</a>
+      <a class="btn" href="register.html" data-i18n="home_cta_btn">سجّل في الدورة</a>
     </div>
   </section>
 </main>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/site.js"></script>
-<script>
-(function () {
-  var C = window.COURSE;
-  document.getElementById('syllabus').innerHTML = C.units.map(function (u) {
-    return '<tr><td><span class="num">' + u.n + '</span></td><td><b>' + ltr(u.axis) + '</b></td><td>' +
-      (u.exercise ? u.exercise + ': ' : '') + ltr(u.exTitle) + '</td><td><a class="textlink" href="lesson.html?u=' + u.n + '">فتح الوحدة</a></td></tr>';
-  }).join('');
-})();
-</script>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/data.js?v=4d55547a"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/page-program.js?v=8ae4c391"></script>
 </body>
 </html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مكتبة الكتب الرقمية — Delta Conception</title>
+<meta name="description" content="مكتبة رقمية لكتب ومراجع نظم المعلومات الجغرافية والاستشعار عن بعد والهيدرولوجيا؛ التحميل للمشتركين المسجَّلين.">
+<meta name="theme-color" content="#1c2b39">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
+</head>
+<body data-page="books">
+<main id="main">
+
+  <header class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html" data-i18n="nav_home">الرئيسية</a> / <span data-i18n="nav_books">مكتبة الكتب</span></p>
+      <h1 data-i18n="books_head_title">مكتبة الكتب والمراجع الجغرافية</h1>
+      <p class="lede" data-i18n="books_head_lede">مراجع متقدمة وكتب تخصصية في نظم المعلومات الجغرافية، الاستشعار عن بعد، وهندسة المياه، مع روابط تحميل عبر <span class="ltr">Google Drive</span>.</p>
+    </div>
+  </header>
+
+  <section class="band">
+    <div class="wrap">
+
+      <!-- شريط البحث والتصفية -->
+      <div class="books-toolbar">
+        <p class="admin-add" id="admin-add" hidden><a class="btn small" href="admin.html#add-book" data-i18n="admin_add_book">+ إضافة كتاب إلى المكتبة</a></p>
+        <div class="search-box">
+          <label for="book-search" class="visually-hidden" data-i18n="books_search_label">ابحث في المكتبة</label><input type="search" id="book-search" class="input" placeholder="ابحث عن كتاب، مؤلف، أو موضوع…" data-i18n-attr="placeholder:books_search_placeholder">
+        </div>
+        <div class="filter-pills" id="category-filters" role="group">
+          <button class="pill active" type="button" aria-pressed="true" data-cat="all"><span data-i18n="books_filter_all">جميع الكتب</span> (<span id="books-count">0</span>)</button>
+          <button class="pill" type="button" aria-pressed="false" data-cat="gis" data-i18n="courses_filter_gis">نظم المعلومات الجغرافية</button>
+          <button class="pill" type="button" aria-pressed="false" data-cat="remote-sensing" data-i18n="courses_filter_rs">الاستشعار عن بعد</button>
+          <button class="pill" type="button" aria-pressed="false" data-cat="hydrology" data-i18n="courses_filter_hydro">الهيدرولوجيا</button>
+          <button class="pill" type="button" aria-pressed="false" data-cat="programming" data-i18n="courses_filter_prog">البرمجة والأتمتة</button>
+        </div>
+      </div>
+
+      <!-- شبكة الكتب -->
+      <div class="books-grid" id="books-container">
+        <p class="empty" data-i18n="books_loading">جارٍ تحميل مكتبة الكتب…</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/books-data.js?v=a238c788"></script>
+<script defer src="assets/js/page-books.js?v=8cf5b544"></script>
+</body>
+</html>

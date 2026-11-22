@@ -3,30 +3,48 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الموارد — دورة QGIS</title>
+<title>الموارد والمعجم — Delta Conception</title>
+<meta name="description" content="روابط تحميل البرامج المجانية، ومعجم مصطلحات نظم المعلومات الجغرافية بالعربية والفرنسية والإنجليزية.">
+<meta name="theme-color" content="#1c2b39">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
 </head>
 <body data-page="resources">
 <main id="main">
   <header class="page-head">
     <div class="wrap">
-      <p class="crumbs"><a href="index.html">الرئيسية</a> / الموارد</p>
-      <h1>البرامج والمصطلحات</h1>
-      <p class="lede">كل ما تحتاجه قبل البدء: الدليل المفصّل للدورة، روابط تحميل البرامج، معجم المصطلحات بالعربية والفرنسية والإنجليزية، وملحقات عملية.</p>
-      <div class="lesson-intro"><a class="btn small" href="files.html">الدليل المفصّل (PDF) — للمتدرّبين</a><a class="textlink" href="#appendix">الملحقات العملية</a></div>
+      <p class="crumbs"><a href="index.html" data-i18n="nav_home">الرئيسية</a> / <span data-i18n="nav_resources">الموارد والمعجم</span></p>
+      <h1 data-i18n="res_head_title">البرامج والمصطلحات</h1>
+      <p class="lede" data-i18n="res_head_lede">كل ما تحتاجه قبل البدء: روابط تحميل البرامج، معجم المصطلحات بثلاث لغات، وملحقات عملية.</p>
+      <div class="lesson-intro">
+        <a class="btn small" href="files.html" data-i18n="prog_btn_guide">الدليل المفصّل (PDF) — للمتدرّبين</a>
+        <a class="textlink" href="#appendix" data-i18n="res_appendix_h2">ملحقات عملية</a>
+      </div>
     </div>
   </header>
 
   <section class="band">
     <div class="wrap">
       <div class="section-head">
-        <h2>قبل الوحدة الأولى</h2>
-        <p class="lede">ثبّت هذه البرامج. كلها مجانية.</p>
+        <h2 data-i18n="res_before_u1_h2">قبل الوحدة الأولى</h2>
+        <p class="lede" data-i18n="res_before_u1_lede">ثبّت هذه البرامج. كلها مجانية ومفتوحة المصدر.</p>
       </div>
-      <table class="table tools"><tbody id="tools-body"></tbody></table>
+      <div class="table-scroll"><table class="table tools">
+        <thead>
+          <tr>
+            <th data-i18n="th_software">البرنامج</th>
+            <th data-i18n="th_usage">الاستخدام في الدورة</th>
+            <th data-i18n="th_price">السعر / الترخيص</th>
+          </tr>
+        </thead>
+        <tbody id="tools-body"></tbody>
+      </table></div>
       <div class="guide" id="crs-tip" style="margin-top:24px"></div>
     </div>
   </section>
@@ -34,15 +52,15 @@
   <section class="band alt" id="guide">
     <div class="wrap split">
       <div>
-        <h2 style="margin-bottom:10px">الدليل المفصّل للدورة</h2>
-        <p style="color:var(--ink-2)">ملف <span class="ltr">PDF</span> يتبع منهاج الموقع وحدةً بوحدة وخطوةً بخطوة: لكل بند من «محتوى التمرين» طريقة تنفيذه في <span class="ltr">QGIS</span>، مع تطبيقات <span class="ltr">Google Earth Pro</span>، ونتيجة كل تمرين، والملحقات.</p>
-        <p style="margin-top:16px"><a class="btn" href="files.html">تحميل الدليل (PDF)</a></p>
-        <p class="small-note" style="margin-top:8px">التحميل للمتدرّبين المسجَّلين: ادخل بالحساب الذي يرسله لك المدرّب.</p>
+        <h2 style="margin-bottom:10px" data-i18n="res_guide_h2">الدليل المفصّل للدورة</h2>
+        <p style="color:var(--ink-2)" data-i18n="res_guide_p">ملف <span class="ltr">PDF</span> يتبع منهاج الموقع وحدةً بوحدة وخطوةً بخطوة، مع خطوات التطبيق في <span class="ltr">QGIS</span> ومرفقات <span class="ltr">Google Earth Pro</span>.</p>
+        <p style="margin-top:16px"><a class="btn" href="files.html" data-i18n="res_btn_download_pdf">تحميل الدليل (PDF)</a></p>
+        <p class="small-note" style="margin-top:8px" data-i18n="res_guide_note">التحميل متاح للمشتركين والطلاب المسجَّلين عبر حساب المنصة.</p>
       </div>
       <div>
-        <h2 style="margin-bottom:10px">في صفحات الوحدات</h2>
-        <p style="color:var(--ink-2)">بعد الدخول بحسابك، افتح أي وحدة واضغط «طريقة التنفيذ» تحت البند الذي تعمل عليه. الشروحات متاحة للمتدرّبين المسجَّلين فقط.</p>
-        <p style="margin-top:16px"><a class="btn quiet" href="lesson.html?u=1">افتح الوحدة 1</a></p>
+        <h2 style="margin-bottom:10px" data-i18n="res_in_units_h2">في صفحات الوحدات</h2>
+        <p style="color:var(--ink-2)" data-i18n="res_in_units_p">بعد الدخول بحسابك، افتح أي وحدة واضغط «طريقة التنفيذ» لاستعراض الشروحات وخطوات التمارين.</p>
+        <p style="margin-top:16px"><a class="btn quiet" href="lesson.html?u=1" data-i18n="res_open_u1">افتح الوحدة 1</a></p>
       </div>
     </div>
   </section>
@@ -50,37 +68,41 @@
   <section class="band alt" id="glossary">
     <div class="wrap">
       <div class="section-head">
-        <h2>معجم المصطلحات</h2>
-        <p class="lede">واجهة <span class="ltr">QGIS</span> متاحة بعدة لغات. استعمل هذا المعجم لتربط المصطلح العربي بما تراه في البرنامج.</p>
+        <h2 data-i18n="res_glossary_h2">معجم المصطلحات الجغرافية</h2>
+        <p class="lede" data-i18n="res_glossary_lede">واجهة QGIS تدعم عدة لغات. استعمل هذا المعجم للربط الدقيق بين المصطلحات بالعربية والإنجليزية والفرنسية.</p>
       </div>
       <div class="search">
-        <label for="q" class="visually-hidden">ابحث في المعجم</label>
-        <input id="q" class="input" type="search" placeholder="ابحث: إسقاط، Raster، Couche…">
+        <label for="q" class="visually-hidden" data-i18n="res_glossary_label">ابحث في المعجم</label>
+        <input id="q" class="input" type="search" placeholder="ابحث: إسقاط، Raster، Couche…" data-i18n-attr="placeholder:res_glossary_search">
       </div>
-      <table class="table glossary">
-        <thead><tr><th>العربية</th><th>Français</th><th>English</th></tr></thead>
+      <div class="table-scroll"><table class="table glossary">
+        <thead><tr><th data-i18n="gl_ar">العربية</th><th data-i18n="gl_fr">الفرنسية (Français)</th><th data-i18n="gl_en">الإنجليزية (English)</th></tr></thead>
         <tbody id="gl"></tbody>
-      </table>
-      <p class="empty" id="gl-empty" hidden>لا يوجد مصطلح مطابق. جرّب كلمة أقصر أو لغة أخرى.</p>
+      </table></div>
+      <p class="empty" id="gl-empty" hidden data-i18n="res_glossary_empty">لا يوجد مصطلح مطابق. جرّب كلمة أقصر أو لغة أخرى.</p>
     </div>
   </section>
 
   <section class="band" id="appendix">
     <div class="wrap">
       <div class="section-head">
-        <h2>ملحقات عملية</h2>
-        <p class="lede">من الدليل المفصّل: أي برنامج لأي مهمة، أسماء القوائم بالإنجليزية والفرنسية، اختصارات لوحة المفاتيح، والأخطاء الشائعة وحلولها.</p>
+        <h2 data-i18n="res_appendix_h2">ملحقات عملية</h2>
+        <p class="lede" data-i18n="res_appendix_lede">مقارنات تقنية، قوائم البرامج، اختصارات لوحة المفاتيح، والحلول السريعة للأخطاء الشائعة.</p>
       </div>
       <div class="notice locked" id="ap-locked" hidden>
-        <h3>الملحقات للمتدرّبين المسجَّلين</h3>
-        <p>ادخل بالحساب الذي يرسله المدرّب لعرض الملحقات العملية.</p>
-        <p class="locked-actions"><a class="btn small" href="files.html?next=resources.html%23appendix">تسجيل الدخول</a><a class="textlink" href="register.html">التسجيل في الدورة</a></p>
+        <h3 data-i18n="res_ap_locked_h">الملحقات للمتدرّبين المسجَّلين</h3>
+        <p data-i18n="res_ap_locked_p">ادخل بالحساب الذي يرسله المدرّب لعرض الملحقات العملية.</p>
+        <p class="locked-actions">
+          <a class="btn small" href="files.html?next=resources.html%23appendix" data-i18n="files_login_h2">تسجيل الدخول</a>
+          <a class="textlink" href="register.html" data-i18n="home_cta_btn">سجّل في الدورة</a>
+        </p>
       </div>
       <div class="guide appendix" id="ap-body" hidden>
-        <h3 id="compare">QGIS و Google Earth Pro: أي برنامج لأي مهمة</h3><div id="ap-compare"></div>
-        <h3 id="menus">قوائم QGIS بالإنجليزية والفرنسية</h3><div id="ap-menus"></div>
-        <h3 id="shortcuts">اختصارات لوحة المفاتيح</h3><div id="ap-shortcuts"></div>
-        <h3 id="troubles">الأخطاء الشائعة وحلولها</h3><div id="ap-troubles"></div>
+        <div id="ap-note"></div>
+        <h3 id="compare" data-i18n="ap_compare_h"><span class="ltr">QGIS</span> و <span class="ltr">Google Earth Pro</span>: أي برنامج لأي مهمة</h3><div id="ap-compare" lang="ar" dir="rtl"></div>
+        <h3 id="menus" data-i18n="ap_menus_h">قوائم <span class="ltr">QGIS</span> بالإنجليزية والفرنسية</h3><div id="ap-menus" lang="ar" dir="rtl"></div>
+        <h3 id="shortcuts" data-i18n="ap_shortcuts_h">اختصارات لوحة المفاتيح</h3><div id="ap-shortcuts" lang="ar" dir="rtl"></div>
+        <h3 id="troubles" data-i18n="ap_troubles_h">الأخطاء الشائعة وحلولها</h3><div id="ap-troubles" lang="ar" dir="rtl"></div>
       </div>
     </div>
   </section>
@@ -88,55 +110,31 @@
   <section class="band alt">
     <div class="wrap split">
       <div>
-        <h2 style="margin-bottom:10px">للتعمّق أكثر</h2>
+        <h2 style="margin-bottom:10px" data-i18n="res_further_h2">مصادر ومراجع للتعمّق</h2>
         <ul class="obj-list">
-          <li><a href="https://docs.qgis.org/latest/en/docs/" target="_blank" rel="noopener">التوثيق الرسمي لـ <span class="ltr">QGIS</span></a></li>
-          <li><a href="https://docs.qgis.org/latest/en/docs/training_manual/" target="_blank" rel="noopener">دليل التدريب الرسمي <span class="ltr">(QGIS Training Manual)</span></a></li>
-          <li><a href="https://plugins.qgis.org" target="_blank" rel="noopener">مستودع إضافات <span class="ltr">QGIS</span></a></li>
-          <li><a href="https://urs.earthdata.nasa.gov" target="_blank" rel="noopener">حساب <span class="ltr">NASA Earthdata</span> (لتنزيل <span class="ltr">SRTM</span>)</a></li>
-          <li><a href="https://plugins.qgis.org/plugins/QuickOSM/" target="_blank" rel="noopener">إضافة <span class="ltr">QuickOSM</span></a></li>
-          <li><a href="https://epsg.io" target="_blank" rel="noopener">البحث عن رموز <span class="ltr">EPSG</span></a></li>
-          <li><a href="https://colorbrewer2.org" target="_blank" rel="noopener">لوحات ألوان <span class="ltr">ColorBrewer</span></a></li>
+          <li><a href="https://docs.qgis.org/latest/en/docs/" target="_blank" rel="noopener" data-i18n="link_qgis_docs">التوثيق الرسمي لـ <span class="ltr">QGIS</span></a></li>
+          <li><a href="https://docs.qgis.org/latest/en/docs/training_manual/" target="_blank" rel="noopener" data-i18n="link_training">دليل التدريب الرسمي <span class="ltr">(QGIS Training Manual)</span></a></li>
+          <li><a href="https://plugins.qgis.org" target="_blank" rel="noopener" data-i18n="link_plugins">مستودع إضافات <span class="ltr">QGIS</span></a></li>
+          <li><a href="https://urs.earthdata.nasa.gov" target="_blank" rel="noopener" data-i18n="link_earthdata">حساب <span class="ltr">NASA Earthdata</span> (لتنزيل <span class="ltr">SRTM</span>)</a></li>
+          <li><a href="https://plugins.qgis.org/plugins/QuickOSM/" target="_blank" rel="noopener" data-i18n="link_quickosm">إضافة <span class="ltr">QuickOSM</span></a></li>
+          <li><a href="https://epsg.io" target="_blank" rel="noopener" data-i18n="link_epsg">البحث عن رموز <span class="ltr">EPSG</span></a></li>
+          <li><a href="https://colorbrewer2.org" target="_blank" rel="noopener" data-i18n="link_colorbrewer">لوحات ألوان <span class="ltr">ColorBrewer</span></a></li>
         </ul>
       </div>
       <div>
-        <h2 style="margin-bottom:10px">ملخص الخطة</h2>
-        <p style="color:var(--ink-2)">صورة واحدة تلخّص الوحدات والتمارين والأهداف، للطباعة أو المشاركة.</p>
-        <p style="margin-top:16px"><a class="btn quiet" href="assets/img/course-plan-ar.png" download>تحميل الصورة</a></p>
+        <h2 style="margin-bottom:10px" data-i18n="res_plan_h2">ملخص الخطة</h2>
+        <p style="color:var(--ink-2)" data-i18n="res_plan_p">صورة واحدة تلخّص الوحدات والتمارين والأهداف، للطباعة أو المشاركة (بالعربية).</p>
+        <p style="margin-top:16px"><a class="btn quiet" href="assets/img/course-plan-ar.png" download data-i18n="res_plan_btn">تحميل الصورة</a></p>
       </div>
     </div>
   </section>
 </main>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/site.js"></script>
-<script>
-(function () {
-  var C = window.COURSE;
-  document.getElementById('tools-body').innerHTML = C.tools.map(function (t) {
-    return '<tr><td><a href="' + t.url + '" target="_blank" rel="noopener">' + t.name + '</a></td><td>' + ltr(t.role) + '</td></tr>';
-  }).join('');
-  var gl = document.getElementById('gl'), empty = document.getElementById('gl-empty');
-  function norm(s) { return s.toLowerCase().replace(/[ً-ْـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/[éèê]/g, 'e'); }
-  function render(f) {
-    var rows = C.glossary.filter(function (r) { return !f || norm(r.join(' ')).indexOf(norm(f)) > -1; });
-    gl.innerHTML = rows.map(function (r) { return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td></tr>'; }).join('');
-    empty.hidden = rows.length > 0;
-  }
-  document.getElementById('q').addEventListener('input', function (e) { render(e.target.value.trim()); });
-  render('');
-  // الملحقات ونصيحة الإسقاط من المحتوى المحمي (للمتدرّبين المسجَّلين فقط)
-  SB.content().then(function (G) {
-    if (!G) { document.getElementById('ap-locked').hidden = false; return; }
-    var A = G.appendix || {};
-    ['compare', 'menus', 'shortcuts', 'troubles'].forEach(function (k) {
-      var el = document.getElementById('ap-' + k); if (el && A[k]) el.innerHTML = A[k];
-    });
-    document.getElementById('ap-body').hidden = false;
-    if (G.crsTip) document.getElementById('crs-tip').innerHTML = '<div class="tip">' + G.crsTip + '</div>';
-  }, function () { document.getElementById('ap-locked').hidden = false; });
-})();
-</script>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/data.js?v=4d55547a"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/page-resources.js?v=3f09bba1"></script>
 </body>
 </html>

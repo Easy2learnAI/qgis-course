@@ -99,14 +99,17 @@ create policy "course-files: admin delete" on storage.objects
   for delete to authenticated
   using (bucket_id = 'course-files' and public.is_admin());
 
+-- 4) مكتبة الكتب والدورات الإضافية: انظر الملفين books.sql و courses.sql (شغّلهما بعد هذا الملف).
+--    روابط Google Drive لا تُقرأ من الجدول مباشرة؛ تُرجعها الدالة book_links() للمتدرّبين المفعَّلين فقط.
+
 -- صلاحيات واجهة البيانات (المشروع لا يمنحها تلقائياً للجداول الجديدة)
 grant select, update on public.profiles to authenticated;
 grant select, insert, update, delete on public.course_files to authenticated;
 grant execute on function public.is_admin(), public.is_active_member() to authenticated;
--- دالة الإدارة (المفتاح السرّي = service_role) تحتاج الوصول إلى الجدولين أيضاً
+-- دالة الإدارة (المفتاح السرّي = service_role) تحتاج الوصول إلى الجداول أيضاً
 grant select, insert, update, delete on public.profiles, public.course_files to service_role;
 
--- 4) نبضة نشاط: يستدعيها GitHub مرتين في الأسبوع حتى لا يتوقف المشروع المجاني
+-- 5) نبضة نشاط: يستدعيها GitHub مرتين في الأسبوع حتى لا يتوقف المشروع المجاني
 create or replace function public.keepalive()
 returns text language sql stable as $$ select 'ok'::text $$;
 grant execute on function public.keepalive() to anon;

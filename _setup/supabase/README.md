@@ -12,6 +12,8 @@
 
 1. **أنشئ مشروعاً** في https://supabase.com (الخطة المجانية).
 2. **قاعدة البيانات:** SQL Editor › New query › الصق محتوى `schema.sql` › Run.
+   ثم في استعلامين جديدين: `books.sql` (مكتبة الكتب وصور الأغلفة) و `courses.sql` (الدورات التي تضيفها لاحقاً).
+   كلاهما آمن للتشغيل أكثر من مرة.
 3. **دالة الإدارة:** Edge Functions › Deploy a new function › Via Editor ›
    الاسم `admin-users` › الصق `functions/admin-users/index.ts` › Deploy.
 4. **أغلق التسجيل الذاتي:** Authentication › Sign In / Providers › عطّل **Allow new users to sign up**

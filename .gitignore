@@ -1,2 +1,6 @@
 _private/
 guide.json
+# مواد التمارين المحمية: تُرفع إلى Supabase من لوحة الإدارة، ولا تُنشر على GitHub Pages
+_materials/
+# نسخة احتياطية محلية من الملفات قبل التعديل
+_backup-before-claude/

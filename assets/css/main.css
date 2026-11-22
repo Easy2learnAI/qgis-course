@@ -37,8 +37,8 @@ a:hover{color:var(--revision)}
 :focus-visible{outline:3px solid var(--revision);outline-offset:3px;border-radius:2px}
 .ltr{direction:ltr;unicode-bidi:isolate}
 .wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:24px}
-.skip{position:absolute;inset-inline-start:-999px;top:8px;background:var(--revision);color:#fff;padding:8px 14px;z-index:99}
-.skip:focus{inset-inline-start:8px}
+.skip{position:absolute;inset-inline-start:8px;top:0;transform:translateY(-120%);background:var(--revision);color:#fff;padding:8px 14px;z-index:99}
+.skip:focus{transform:translateY(8px)}
 [hidden]{display:none!important}
 .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
@@ -60,14 +60,17 @@ p{max-width:68ch}
 .textlink:hover{color:var(--contour)}
 
 /* ---------- header ---------- */
-.site-header{position:sticky;top:0;z-index:50;background:rgba(246,247,244,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
-.site-header .wrap{display:flex;align-items:center;gap:32px;height:72px}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.site-header{position:sticky;top:0;z-index:50;background:#f6f7f4;border-bottom:1px solid var(--rule)}
+.site-header .wrap{display:flex;align-items:center;gap:24px;height:72px;position:relative}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);flex:none;max-width:calc(100% - 60px)}
+.brand>span{min-width:0}
 .brand svg{width:38px;height:38px;flex:none}
 .brand b{font-family:var(--f-display);font-size:var(--s1);display:block;line-height:1.2}
-.brand small{display:block;font-size:13px;color:var(--ink-3);line-height:1.2}
-.nav{display:flex;gap:4px;margin-inline-start:auto;list-style:none}
-.nav a{display:block;padding:8px 14px;text-decoration:none;color:var(--ink-2);font-weight:600;border-radius:var(--r)}
+.brand small{display:block;font-size:13px;color:var(--ink-3);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav{display:flex;align-items:center;gap:2px;margin-inline-start:auto;list-style:none}
+.nav a{display:block;padding:8px 12px;text-decoration:none;color:var(--ink-2);font-weight:600;border-radius:var(--r);white-space:nowrap}
+.nav a.nav-cta{color:#fff;margin-inline-start:8px;padding:8px 16px}
+.nav a.nav-cta:hover{color:#fff;background:var(--revision-dark)}
 .nav a:hover{color:var(--ink);background:var(--paper-2)}
 .nav a[aria-current="page"]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--contour)}
 .menu-toggle{display:none;margin-inline-start:auto;background:none;border:1px solid var(--rule);border-radius:var(--r);width:44px;height:44px;cursor:pointer}
@@ -300,11 +303,23 @@ p{max-width:68ch}
   .footer-grid{grid-template-columns:1fr 1fr}
   .toc{position:static;order:2}
 }
-@media (max-width:760px){
-  :root{--s5:2.25rem;--s4:1.875rem}
-  .nav{display:none;position:absolute;top:72px;inset-inline:0;flex-direction:column;background:var(--paper);border-bottom:1px solid var(--rule);padding:10px 16px}
+/* القائمة المطوية: تُفعَّل في الشاشات الضيقة، أو تلقائياً (site.js) عندما لا تتسع الروابط بلغة الصفحة */
+.nav-collapsed .nav{display:none;position:absolute;top:72px;inset-inline:0;flex-direction:column;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--rule);padding:10px 16px;box-shadow:0 12px 24px -16px rgba(28,43,57,.4)}
+.nav-collapsed.menu-open .nav{display:flex}
+.nav-collapsed .menu-toggle{display:block}
+.nav-collapsed .nav a.nav-cta{margin:8px 0 0;text-align:center}
+.nav-collapsed .nav .lang-li{padding:10px 0 4px}
+.nav-collapsed .lang-switch{margin-inline-start:0}
+@media (max-width:1020px){
+  .nav{display:none;position:absolute;top:72px;inset-inline:0;flex-direction:column;align-items:stretch;background:var(--paper);border-bottom:1px solid var(--rule);padding:10px 16px;box-shadow:0 12px 24px -16px rgba(28,43,57,.4)}
   .menu-open .nav{display:flex}
   .menu-toggle{display:block}
+  .nav a.nav-cta{margin:8px 0 0;text-align:center}
+  .nav .lang-li{padding:10px 0 4px}
+  .lang-switch{margin-inline-start:0}
+}
+@media (max-width:760px){
+  :root{--s5:2.25rem;--s4:1.875rem}
   .legend{grid-template-columns:1fr}
   .traverse li{grid-template-columns:56px minmax(0,1fr);gap:18px}
   .traverse .go{grid-column:2}
@@ -409,3 +424,206 @@ details.how>.guide{margin-top:12px}
 .notice.locked{margin:4px 0 20px}
 .notice.locked p+p{margin-top:12px}
 .locked-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+
+/* ---------- فلاتر وأزرار التصفية ---------- */
+.courses-toolbar,.books-toolbar{margin-bottom:32px;display:flex;flex-direction:column;gap:16px}
+.filter-pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--sheet);border:1.5px solid var(--rule);color:var(--ink-2);font-family:var(--f-body);font-size:14px;font-weight:600;padding:8px 18px;border-radius:24px;cursor:pointer;transition:all .15s}
+.pill:hover{border-color:var(--ink-2);color:var(--ink)}
+.pill.active{background:var(--revision);border-color:var(--revision);color:#fff}
+.search-box{max-width:480px}
+
+/* ---------- بطاقات الدورات ---------- */
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:28px}
+.course-card{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 2px 10px rgba(28,43,57,.04);transition:transform .2s,box-shadow .2s}
+.course-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(28,43,57,.08);border-color:var(--contour)}
+.course-card.active-course{border-inline-start:4px solid var(--revision)}
+.course-header{margin-bottom:14px}
+.course-meta-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.course-meta-top .tag{white-space:nowrap;flex:none}
+.course-duration{font-size:13px;color:var(--ink-3);font-weight:600;text-align:end;line-height:1.4}
+.course-card h3{font-size:1.35rem;margin-bottom:6px;line-height:1.4}
+.course-tagline{font-size:14px;color:var(--contour);font-weight:600;line-height:1.5}
+.course-summary{font-size:14.5px;color:var(--ink-2);margin-bottom:16px;line-height:1.7}
+.course-highlights{background:var(--paper);border-radius:var(--r);padding:14px 16px;margin-bottom:16px}
+.course-highlights h4{font-size:13.5px;margin-bottom:8px;color:var(--ink)}
+.course-feats{list-style:none;font-size:13.5px;color:var(--ink-2);display:flex;flex-direction:column;gap:5px}
+.course-feats li::before{content:"✓ ";color:var(--revision);font-weight:bold;margin-inline-end:4px}
+.course-sw{font-size:13px;color:var(--ink-2);margin-bottom:18px}
+.chips-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.course-footer{border-top:1px solid var(--rule);padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.course-info-meta{display:flex;flex-direction:column;font-size:12.5px;color:var(--ink-3);line-height:1.5}
+.course-info-meta b{color:var(--ink)}
+.course-actions{display:flex;gap:8px}
+
+/* ---------- بطاقات مكتبة الكتب ---------- */
+.books-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+.book-card{background:var(--sheet);border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 3px 12px rgba(28,43,57,.05);transition:transform .2s,box-shadow .2s}
+.book-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(28,43,57,.1);border-color:var(--water)}
+.book-cover-wrap{position:relative;height:240px;background:linear-gradient(135deg,var(--paper-2),var(--rule));overflow:hidden;display:flex;align-items:center;justify-content:center}
+.book-ph{width:96px;height:auto;opacity:.9}
+.book-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s;background:var(--paper-2)}
+.book-card:hover .book-cover{transform:scale(1.04)}
+.book-cat-badge{position:absolute;top:10px;inset-inline-start:10px;background:rgba(28,43,57,.88);color:#fff;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:12px;z-index:1}
+.book-info{padding:18px;display:flex;flex-direction:column;flex:1}
+.book-title{font-size:1.15rem;font-weight:700;margin-bottom:6px;line-height:1.45;color:var(--ink)}
+.book-author{font-size:13px;color:var(--contour);font-weight:600;margin-bottom:10px}
+.book-desc{font-size:13.5px;color:var(--ink-2);line-height:1.65;margin-bottom:14px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.book-meta-bottom{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);padding-bottom:12px;border-bottom:1px solid var(--rule);margin-bottom:12px}
+.book-action{margin-top:auto}
+.book-dl-btn{width:100%;justify-content:center}
+
+/* ---------- نافذة الحظر / التنبيه للزوار (Modal Lock) ---------- */
+.modal-backdrop{position:fixed;inset:0;background:rgba(28,43,57,.72);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-card{background:var(--sheet);border-radius:var(--r);border:2px solid var(--revision);box-shadow:0 24px 60px rgba(0,0,0,.3);max-width:480px;width:100%;padding:32px 28px;position:relative;text-align:center;animation:modalPop .25s ease-out}
+@keyframes modalPop{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.modal-close{position:absolute;top:12px;inset-inline-end:16px;background:none;border:none;font-size:24px;cursor:pointer;color:var(--ink-3)}
+.modal-close:hover{color:var(--ink)}
+.modal-icon{font-size:44px;line-height:1;margin-bottom:12px}
+.modal-actions{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.modal-actions .btn{width:100%;justify-content:center}
+
+/* ---------- أزرار تبديل اللغة (Language Switcher) ---------- */
+.lang-switch{display:inline-flex;align-items:center;background:var(--paper-2);border:1px solid var(--rule);border-radius:20px;padding:2px;gap:2px;margin-inline-start:8px}
+.lang-btn{background:none;border:none;border-radius:16px;padding:4px 10px;font-family:var(--f-body);font-size:12px;font-weight:700;color:var(--ink-2);cursor:pointer;line-height:1.2;transition:all .15s}
+.lang-btn:hover{color:var(--ink);background:rgba(255,255,255,.6)}
+.lang-btn.active{background:var(--revision);color:#fff;box-shadow:0 1px 4px rgba(122,46,140,.25)}
+
+/* ---------- دعم الوضع اللاتيني / الإنجليزي / الفرنسي (LTR) ---------- */
+html[dir="ltr"]{
+  --f-display:"IBM Plex Sans Arabic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-body:"IBM Plex Sans Arabic",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+html[dir="ltr"] body{
+  font-family:var(--f-body);
+  line-height:1.68;
+}
+html[dir="ltr"] h1,
+html[dir="ltr"] h2,
+html[dir="ltr"] h3,
+html[dir="ltr"] h4,
+html[dir="ltr"] .btn,
+html[dir="ltr"] b{
+  font-family:var(--f-display);
+  font-weight:700;
+  letter-spacing:-0.012em;
+}
+html[dir="ltr"] h1{line-height:1.25}
+html[dir="ltr"] .lede{line-height:1.65}
+html[dir="ltr"] .crumbs,
+html[dir="ltr"] .section-head,
+html[dir="ltr"] .hero p,
+html[dir="ltr"] .course-card,
+html[dir="ltr"] .book-card,
+html[dir="ltr"] .table,
+html[dir="ltr"] .notice,
+html[dir="ltr"] .area-list,
+html[dir="ltr"] .legend,
+html[dir="ltr"] .traverse,
+html[dir="ltr"] .flow,
+html[dir="ltr"] .faq,
+html[dir="ltr"] .form,
+html[dir="ltr"] .site-footer{
+  text-align:left;
+}
+html[dir="ltr"] .table th,
+html[dir="ltr"] .table td{
+  text-align:left;
+}
+html[dir="ltr"] .table td:first-child{
+  direction:ltr;
+  text-align:left!important;
+}
+html[dir="ltr"] .syllabus td:first-child{
+  direction:ltr;
+  text-align:left!important;
+}
+html[dir="ltr"] .input,
+html[dir="ltr"] select,
+html[dir="ltr"] textarea{
+  text-align:left;
+}
+html[dir="ltr"] .brand small{
+  font-size:12px;
+  letter-spacing:0.01em;
+}
+html[dir="ltr"] .pill{letter-spacing:0.01em}
+html[dir="ltr"] .tag{letter-spacing:0.02em}
+html[dir="ltr"] .flow li{
+  border-inline-start:1px solid rgba(255,255,255,.18);
+  padding:20px 20px 0 20px;
+}
+html[dir="ltr"] .flow li:first-child{
+  border-inline-start:none;
+  padding-left:0;
+}
+html[dir="ltr"] .legend li{text-align:left}
+html[dir="ltr"] .faq summary{text-align:left}
+html[dir="ltr"] .cta{text-align:left}
+html[dir="ltr"] .cta div{text-align:left}
+html[dir="ltr"] .course-info-meta{text-align:left}
+html[dir="ltr"] .book-info{text-align:left}
+html[dir="ltr"] .aside-box{text-align:left}
+html[dir="ltr"] .toc{text-align:left}
+html[dir="ltr"] .toc a{text-align:left}
+html[dir="ltr"] .obj-list li{text-align:left}
+
+/* ---------- لغة الصفحة قبل الرسم: إخفاء لحظي حتى تُطبَّق الترجمة (يمنع وميض النص العربي) ---------- */
+html.i18n-wait body{visibility:hidden}
+
+/* ---------- عناصر أضيفت في هذا الإصدار ---------- */
+.member-banner{margin-bottom:32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.member-banner .banner-msg{margin-inline-start:8px;color:var(--ink-2)}
+#banner-actions{display:flex;gap:8px;flex-wrap:wrap}
+.membership-box{margin-top:64px;border-radius:var(--r);padding:44px 36px;border:1px solid var(--rule)}
+.ar-note{font-size:var(--s-1);color:var(--ink-3);border-inline-start:3px solid var(--contour);padding-inline-start:10px;margin:8px 0 14px}
+.pager a.next{text-align:end}
+.radios+.err,.field .label{font-weight:600;font-size:15px}
+.book-card .book-info{gap:2px}
+/* محتوى عربي داخل صفحة إنجليزية/فرنسية */
+html[dir="ltr"] [dir="rtl"]{text-align:right}
+html[dir="ltr"] .glossary td[dir="rtl"]{direction:rtl;text-align:right!important;font-family:"IBM Plex Sans Arabic",sans-serif}
+html[dir="ltr"] .glossary td[dir="ltr"]{text-align:left}
+.glossary td[dir="ltr"]{direction:ltr}
+html[dir="rtl"] .glossary td[dir="ltr"]{text-align:right}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media (max-width:640px){
+  .table-scroll .table:not(.tools){min-width:520px}
+  .glossary td,.syllabus td{word-break:break-word}
+}
+.split>*,.section-head>*,.lesson>*,.reg>*{min-width:0}
+.table-scroll{max-width:100%;position:relative}
+
+/* ---------- لوحة الإدارة: أقسام، محرّر الدورات والكتب مع المعاينة ---------- */
+.admin-nav{position:sticky;top:72px;z-index:5;display:flex;flex-wrap:wrap;gap:6px;background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);padding:8px;margin-bottom:8px}
+.admin-nav a{text-decoration:none;color:var(--ink-2);font-weight:600;padding:6px 12px;border-radius:20px}
+.admin-nav a:hover{background:var(--paper-2);color:var(--ink)}
+.admin-nav .count{font-size:12px;background:var(--paper-2);border-radius:10px;padding:0 7px;margin-inline-start:4px}
+.admin-sec{margin-top:64px;scroll-margin-top:140px}
+#trainees.admin-sec{margin-top:32px}
+.editor{display:grid;grid-template-columns:minmax(0,3fr) minmax(260px,2fr);gap:28px;align-items:start;margin:8px 0 28px}
+.editor .auth-box{max-width:none}
+.editor .preview{position:sticky;top:150px}
+.editor .preview .small-note{margin-bottom:10px}
+.courses-grid.one,.books-grid.one{grid-template-columns:minmax(0,1fr)}
+.books-grid.one{max-width:300px}
+.form.two{grid-template-columns:1fr 1fr;gap:14px 18px}
+.req{color:var(--revision)}
+.check-field label{display:flex;align-items:center;gap:8px;font-weight:600;cursor:pointer}
+.check-field{justify-content:flex-end}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap}
+.tr-box{border:1px dashed var(--rule);border-radius:var(--r);padding:10px 14px}
+.tr-box summary{cursor:pointer;font-weight:600}
+.tr-set{border:none;border-top:1px solid var(--rule);margin-top:12px;padding-top:12px;display:flex;flex-direction:column;gap:12px;text-align:left}
+.tr-set legend{font-weight:700;color:var(--ink-3);font-size:var(--s-1);padding:0 6px}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.seg label{display:flex;align-items:center;gap:6px;border:1.5px solid var(--rule);border-radius:20px;padding:4px 12px;cursor:pointer;font-size:var(--s-1);font-weight:600;background:#fff}
+.seg label:has(input:checked){border-color:var(--revision);background:var(--revision-tint)}
+.mini-cover{object-fit:cover;border-radius:2px;border:1px solid var(--rule);background:var(--paper-2)}
+.admin-add{margin:0}
+.more-soon{margin-top:28px}
+@media (max-width:900px){
+  .editor{grid-template-columns:1fr}
+  .editor .preview{position:static}
+  .form.two{grid-template-columns:1fr}
+}

@@ -3,17 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الوحدة — دورة QGIS</title>
+<title>الوحدة — Delta Conception</title>
+<meta name="theme-color" content="#1c2b39">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/main.css">
+<script>(function(){try{var l=localStorage.getItem('delta_lang');if(l==='en'||l==='fr'){var h=document.documentElement;h.lang=l;h.dir='ltr';h.classList.add('i18n-wait');setTimeout(function(){h.classList.remove('i18n-wait')},2500);var k=document.createElement('link');k.rel='preload';k.as='script';k.href='assets/js/i18n.js?v=8ca8debb';k.fetchPriority='high';document.head.appendChild(k)}}catch(e){}})();</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cuyexrllyckeqpobxdze.supabase.co" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=Noto+Kufi+Arabic:wght@700;800&amp;display=swap"></noscript>
+<link rel="stylesheet" href="assets/css/main.css?v=7fd8b29c">
 </head>
 <body data-page="lesson">
 <main id="main">
   <header class="page-head">
     <div class="wrap">
-      <p class="crumbs"><a href="index.html">الرئيسية</a> / <a href="program.html">البرنامج</a> / <span id="crumb"></span></p>
+      <p class="crumbs"><a href="index.html" data-i18n="nav_home">الرئيسية</a> / <a href="program.html" data-i18n="prog_title">برنامج الدورة</a> / <span id="crumb"></span></p>
       <h1 id="title"></h1>
       <p class="lede" id="ex-title"></p>
       <div class="lesson-intro" id="chips"></div>
@@ -21,56 +26,62 @@
   </header>
 
   <div class="wrap lesson">
-    <nav class="toc" aria-label="الوحدات">
-      <h2>الوحدات</h2>
+    <nav class="toc" aria-label="الوحدات" data-i18n-attr="aria-label:lesson_units_nav">
+      <h2 data-i18n="lesson_units_nav">الوحدات</h2>
       <ol id="toc"></ol>
     </nav>
 
     <article class="lesson-main">
-      <h2>أهداف التعلّم</h2>
+      <h2 data-i18n="lesson_objectives_h2">أهداف التعلّم</h2>
       <ul class="obj-list" id="objectives"></ul>
 
       <div class="outline-head">
-        <h2>محتوى التمرين</h2>
+        <h2 data-i18n="lesson_steps_h2">محتوى التمرين</h2>
         <button type="button" class="textlink as-btn" id="toggle-all" hidden>اعرض كل التفاصيل</button>
       </div>
       <div class="notice locked" id="locked" hidden>
-        <h3>طريقة التنفيذ والشروحات للمتدرّبين المسجَّلين</h3>
-        <p>يظهر هنا لكل بند شرحه وخطوات تنفيذه داخل <span class="ltr">QGIS</span> و <span class="ltr">Google Earth Pro</span> والنتيجة المطلوبة، بعد الدخول بالحساب الذي يرسله المدرّب.</p>
-        <p class="locked-actions"><a class="btn small" id="locked-login" href="files.html">تسجيل الدخول</a><a class="textlink" href="register.html">التسجيل في الدورة</a></p>
+        <h3 data-i18n="lesson_locked_title">طريقة التنفيذ والشروحات للمتدرّبين المسجَّلين</h3>
+        <p id="locked-desc"></p>
+        <p class="locked-actions">
+          <a class="btn small" id="locked-login" href="files.html" data-i18n="files_login_h2">تسجيل الدخول</a>
+          <a class="textlink" href="register.html" data-i18n="home_cta_btn">سجّل في الدورة</a>
+        </p>
       </div>
-      <p class="small-note" id="loading" hidden>جارٍ تحميل الشروحات…</p>
-      <p class="hint" id="steps-hint" hidden>اضغط «طريقة التنفيذ» تحت أي بند لعرض خطواته داخل <span class="ltr">QGIS</span>، كما في الدليل المفصّل (PDF).</p>
+      <p class="small-note" id="loading" hidden data-i18n="lesson_loading">جارٍ تحميل الشروحات…</p>
+      <p class="hint" id="steps-hint" hidden data-i18n="lesson_steps_hint">اضغط «طريقة التنفيذ» تحت أي بند لعرض خطواته داخل <span class="ltr">QGIS</span>، كما في الدليل المفصّل (<span class="ltr">PDF</span>).</p>
+      <p class="ar-note" id="guide-ar-note" hidden data-i18n="guide_ar_note">الشروحات التفصيلية مكتوبة بالعربية.</p>
       <ol class="outline" id="steps"></ol>
 
       <section id="extras-sec" hidden>
-        <h2>لإتمام أهداف التعلّم</h2>
-        <div class="guide" id="extras"></div>
+        <h2 data-i18n="lesson_extras_h2">لإتمام أهداف التعلّم</h2>
+        <div class="guide" id="extras" lang="ar" dir="rtl"></div>
       </section>
 
       <section id="ge-sec" hidden>
-        <h2 id="ge-title">Google Earth Pro</h2>
-        <div class="guide"><div class="tool g"><div class="th"><span class="ltr">Google Earth Pro</span><span class="opt" id="ge-opt" hidden>تطبيق اختياري</span></div><div class="tb" id="ge"></div></div></div>
+        <h2 id="ge-title"><span class="ltr">Google Earth Pro</span></h2>
+        <div class="guide"><div class="tool g"><div class="th"><span class="ltr">Google Earth Pro</span><span class="opt" id="ge-opt" hidden data-i18n="lesson_ge_opt_badge">تطبيق اختياري</span></div><div class="tb" id="ge" lang="ar" dir="rtl"></div></div></div>
       </section>
 
       <section id="result-sec" hidden>
-        <h2>النتيجة</h2>
-        <div class="deliv" id="result"></div>
+        <h2 data-i18n="lesson_result_h2">النتيجة</h2>
+        <div class="deliv" id="result" lang="ar" dir="rtl"></div>
       </section>
 
       <section id="materials-sec" hidden>
-        <h2>المواد</h2>
+        <h2 data-i18n="lesson_materials_h2">المواد</h2>
         <div class="files" id="files"></div>
       </section>
 
-      <nav class="pager" id="pager" aria-label="التنقل بين الوحدات"></nav>
+      <nav class="pager" id="pager" aria-label="التنقل بين الوحدات" data-i18n-attr="aria-label:lesson_pager"></nav>
     </article>
   </div>
 </main>
-<script src="assets/js/config.js"></script>
-<script src="assets/js/data.js"></script>
-<script src="assets/js/auth.js"></script>
-<script src="assets/js/site.js"></script>
-<script src="assets/js/lesson.js"></script>
+<script defer src="assets/js/config.js?v=1a7fb52e"></script>
+<script defer src="assets/js/i18n.js?v=8ca8debb"></script>
+<script defer src="assets/js/data.js?v=4d55547a"></script>
+<script defer src="assets/js/courses-data.js?v=c8c78bd6"></script>
+<script defer src="assets/js/site.js?v=07e07d1e"></script>
+<script defer src="assets/js/auth.js?v=ef661df9"></script>
+<script defer src="assets/js/lesson.js?v=a1df28b3"></script>
 </body>
 </html>
